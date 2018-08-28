@@ -1,0 +1,7 @@
+{
+  "name": "betAPP",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

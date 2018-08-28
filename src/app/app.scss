@@ -1,0 +1,68 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+div.tabbar.show-tabbar {
+    background-color: #000b33;
+}
+
+.tabs-md .tab-button[aria-selected="true"] .tab-button-icon {
+    color: #ffffff;
+}
+
+.tabs-md .tab-button[aria-selected="true"] {
+    color: #ffffff;
+}
+
+.tabs-md .tab-button[aria-selected="false"] .tab-button-icon {
+    color: rgba(255,255,255,0.7);
+}
+
+.tabs-md .tab-button[aria-selected="false"] {
+    color: rgba(255,255,255,0.7);
+}
+
+.ion-ios-custombeticon,
+.ion-md-custombeticon {
+    content: url(../assets/imgs/ui/tab-icon-bet.png);
+    width: 30px;
+}
+
+.ion-ios-customresulticon,
+.ion-md-customresulticon {
+    content: url(../assets/imgs/ui/tab-icon-result.png);
+    width: 30px;
+}
+
+.ion-ios-customprofileicon,
+.ion-md-customprofileicon {
+    content: url(../assets/imgs/ui/tab-icon-profile.png);
+    width: 30px;
+}
+
+.tabs-md[tabslayout="icon-top"] .has-icon .tab-button-text {
+    margin-top: 0px;
+}
+
+ion-header {
+    background-color: #001763; 
+    color: #ffffff;
+}
+
+ion-content div.scroll-content {
+    margin-top: 108px;
+    background: -webkit-radial-gradient(center, ellipse cover, #0171c3 1%,#001765 100%);
+}
