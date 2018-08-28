@@ -17,4 +17,23 @@ page-login {
         width: 50%;
         margin: auto;
     }
+
+    .signin {
+        width: 50%;
+        margin: auto;
+    }
+
+    .item-inner {
+        border-bottom: 1px solid #dedede !important;
+    }
+
+    .list-md .item-input:last-child {
+        border-bottom: 0px !important;
+    }
+
+    .list-md .item-input.item-input-has-focus:last-child,
+    .list-md .item-input.input-has-focus:last-child {
+        box-shadow: 0 0 0 transparent!important;
+    }
+
 }

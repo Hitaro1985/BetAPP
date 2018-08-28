@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, App, LoadingController, ToastController } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 /**
  * Generated class for the LoginPage page.
@@ -19,10 +20,11 @@ export class LoginPage {
 
   loading: any;
   loginData = { username:'', password:'' }
+  data: any;
 
   @ViewChild(NavController) navCtrl: NavController;
 
-  constructor(public app: App, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+  constructor(public app: App, public loadingCtrl: LoadingController, private toastCtrl: ToastController, public authService: AuthServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -36,6 +38,16 @@ export class LoginPage {
     console.log('password:', this.loginData.password);
 
     this.showLoader();
+    console.log(this.authService);
+    this.authService.login(this.loginData).then((result) => {
+      this.loading.dismiss();
+      this.data = result;
+      localStorage.setItem('token', this.data.access_token);
+      this.app.getRootNav().setRoot(TabsPage);
+    }, (err) => {
+      this.loading.dismiss();
+      this.presentToast(err);
+    });
   }
 
   back() {
