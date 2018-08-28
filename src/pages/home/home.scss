@@ -52,4 +52,93 @@ page-home {
     div.item-inner {
         padding-left: 20px;
     }
+
+    .col_1_2 {
+       background: -webkit-linear-gradient(top, #6f1946 0%,#082447 63%,#082447 100%);
+       border: 1px solid #368fe8;
+    }
+    .col_3 {
+        background: -webkit-linear-gradient(left, #06233a 0%,#06233a 11%,#12488a 100%);
+         border: 1px solid #368fe8;
+    }
+    .part1 {
+        background: url('../../assets/imgs/ui/part1.png');
+        height:50px;
+        background-size: 100% 100%;
+        margin-top: 15%;
+    }
+    .part2 {
+        background: url('../../assets/imgs/ui/part2.png');
+        height:50px;
+        background-size: 100% 100%;
+        margin-top: 15%;
+    }
+    .dot {
+        height: 15px;
+        width: 15px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        font-size: 12px;
+        background: red;
+    }
+    .lightBlck{
+        background-color: #1b1623;
+    }
+    .min_max  {
+        li {
+            list-style: none;
+            width: 30%;
+            background-color: #1b1623;
+            border: 1px solid aqua;
+            color: white;
+            text-align: center !important;
+        }
+        li:nth-child(2) {
+            margin-left: 3%;
+        }
+        display: flex;
+        flex-flow: row;
+        align-items: flex-start;
+        padding: 0;
+    }
+    .cell {
+        color: white;
+        border: 1px solid aqua;
+        font-size: 12px;
+    }
+    .zero {
+        background: darkgreen;
+        align-items: center;
+        display: flex;
+        font-size: 32px;
+        color: white;
+    }
+    .cellBlue {
+       background-color:  #0d3867;
+        color: white;
+        border: 1px solid aqua;
+       .border_top {
+           border-top:0;
+       }
+       .border_bottom {
+           border-bottom:0;
+       }
+       .border_left {
+           border-left:0;
+       }
+       .border_right {
+           border-right:0;
+       }
+    }
+    .coins {
+        display: flex;
+        flex-flow: row;
+        align-items: flex-start;
+        padding: 0;
+        li {
+            list-style: none;
+            padding-left: 3%;
+        }
+    }
 }
