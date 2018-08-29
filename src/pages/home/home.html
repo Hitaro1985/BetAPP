@@ -28,9 +28,9 @@
             <ion-col col-4 style="border-right: 1px solid #368fe8;">
                 <p>Closed time : 27-8-2018 | 20:30:00</p>
                 <ion-row>
-                    <ion-col col-4>LEFT</ion-col>
+                    <ion-col col-4 style="margin-top: 5px;">LEFT</ion-col>
                     <ion-col col-3><img src="../../assets/imgs/ui/timer.png" /></ion-col>
-                    <ion-col col-5 style="font-size: 12px"><strong>00:27:15</strong></ion-col>
+                    <ion-col col-5 style="font-size: 09px; margin-top: 5px;"><strong>00:27:15</strong></ion-col>
                 </ion-row>
             </ion-col>
             <ion-col col-4 style="border-right: 1px solid #368fe8;">
@@ -104,60 +104,60 @@
                 <ion-col col-11 style="padding: 0">
                     <ion-row>
                         <ion-col class="cell" col-1 *ngFor="let item of table;" [ngStyle]="{background:item.color}">
-                            {{item.no}}
-                        </ion-col>
-                    </ion-row>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col col-1>&nbsp;</ion-col>
-                <ion-col col-11 style="padding: 0">
-                    <ion-row>
-                        <ion-col col-4 class="cellBlue">1st 12</ion-col>
-                        <ion-col col-4 class="cellBlue">2nd 12</ion-col>
-                        <ion-col col-4 class="cellBlue">3rd 12</ion-col>
-
-                        <ion-col no-padding col-4 class="">
-                            <ion-row>
-                                <ion-col col-6 class="cellBlue">1-18</ion-col>
-                                <ion-col col-6 class="cellBlue">EVEN</ion-col>
-                            </ion-row>
-                        </ion-col>
-                        <ion-col no-padding col-4 class="">
-                            <ion-row>
-                                <ion-col col-6 class="cellBlue" style="background-color: #1b1623">&nbsp;</ion-col>
-                                <ion-col col-6 class="cellBlue" style="background-color: red">&nbsp;</ion-col>
-                            </ion-row>
-                        </ion-col>
-                        <ion-col no-padding col-4 class="">
-                            <ion-row>
-                                <ion-col col-6 class="cellBlue">ODD</ion-col>
-                                <ion-col col-6 class="cellBlue">19-36</ion-col>
-                            </ion-row>
-                        </ion-col>
-                    </ion-row>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col col-8 offset-2>
-                    <ul class="coins">
-                        <li><img width="30" src="../../assets/imgs/ui/coins_1.png"></li>
-                        <li><img width="30" src="../../assets/imgs/ui/coins_2.png"></li>
-                        <li><img width="30" src="../../assets/imgs/ui/coins_3.png"></li>
-                        <li><img width="30" src="../../assets/imgs/ui/coins_4.png"></li>
-                        <li><img width="30" src="../../assets/imgs/ui/coins_4.png"></li>
-                        <li><img width="30" src="../../assets/imgs/ui/coins_6.png"></li>
-                        <li><img width="30" src="../../assets/imgs/ui/coins_7.png"></li>
-                    </ul>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col col-3 offset-3 class="cellBlue">REBET</ion-col>
-                <ion-col col-3 class="cellBlue">BET NOW</ion-col>
-            </ion-row>
-        </div>
-        <ion-row style="background: url('../../assets/imgs/ui/split-bar.png');background-size: 100% 100%;">
-            <ion-col col-12 style="color:white">Total Bet: MYR 170.00</ion-col>
+                                 {{item.no}}
+                    </ion-col>
+                </ion-row>
+            </ion-col>
         </ion-row>
-    </ion-grid>
+        <ion-row>
+            <ion-col col-1>&nbsp;</ion-col>
+            <ion-col col-11 style="padding: 0">
+                <ion-row>
+                    <ion-col col-4 class="cellBlue">1st 12</ion-col>
+                    <ion-col col-4 class="cellBlue">2nd 12</ion-col>
+                    <ion-col col-4 class="cellBlue">3rd 12</ion-col>
+
+                    <ion-col no-padding col-4 class="">
+                        <ion-row>
+                            <ion-col col-6 class="cellBlue">1-18</ion-col>
+                            <ion-col col-6 class="cellBlue">EVEN</ion-col>
+                        </ion-row>
+                    </ion-col>
+                    <ion-col no-padding col-4 class="">
+                        <ion-row>
+                            <ion-col col-6 class="cellBlue" style="background-color: #1b1623">&nbsp;</ion-col>
+                            <ion-col col-6 class="cellBlue" style="background-color: red">&nbsp;</ion-col>
+                        </ion-row>
+                    </ion-col>
+                    <ion-col no-padding col-4 class="">
+                        <ion-row>
+                            <ion-col col-6 class="cellBlue">ODD</ion-col>
+                            <ion-col col-6 class="cellBlue">19-36</ion-col>
+                        </ion-row>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-8 offset-2>
+                <ul class="coins">
+                    <li><img width="30" src="../../assets/imgs/ui/coins_1.png"></li>
+                    <li><img width="30" src="../../assets/imgs/ui/coins_2.png"></li>
+                    <li><img width="30" src="../../assets/imgs/ui/coins_3.png"></li>
+                    <li><img width="30" src="../../assets/imgs/ui/coins_4.png"></li>
+                    <li><img width="30" src="../../assets/imgs/ui/coins_4.png"></li>
+                    <li><img width="30" src="../../assets/imgs/ui/coins_6.png"></li>
+                    <li><img width="30" src="../../assets/imgs/ui/coins_7.png"></li>
+                </ul>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-3 offset-3 class="cellBlue">REBET</ion-col>
+            <ion-col col-3 class="cellBlue">BET NOW</ion-col>
+        </ion-row>
+    </div>
+    <ion-row style="background: url('../../assets/imgs/ui/split-bar.png');background-size: 100% 100%;">
+        <ion-col col-12 style="color:white">Total Bet: MYR 170.00</ion-col>
+    </ion-row>
+</ion-grid>
 </ion-content>
