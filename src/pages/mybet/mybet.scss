@@ -52,4 +52,59 @@ page-mybet {
     div.item-inner {
         padding-left: 20px;
     }
+    
+    .text-left{
+        text-align: left !important;
+    }
+     .text-right{
+        text-align: right !important;
+    }
+    
+    .p-r-5{
+        padding-right: 1px !important;
+    }
+    
+    .p-b-5{
+        padding-bottom: 5px !important;
+    }
+    
+    ion-col p{
+        font-size: 10px !important; 
+        font-weight: 600;
+        color: white !important;
+    }
+    
+    p span{
+        color: #c01e2d !important;
+    }
+    
+    .button[icon-only] {
+        border-radius: 2px;
+        overflow: hidden;
+        height: 2rem;
+        width: 2rem;
+        font-size: 1rem;
+    }
+    
+    .m-top-4{
+        margin-top: -4px;
+    }
+    
+    .normal-button{
+        overflow: visible;
+        background: #60abd5;
+        color: white;
+    }
+    .blue-button{
+        overflow: visible;
+        background: #0e3868;
+        color: white;
+    }
+    
+    .button-md {
+        border-radius: 2px;
+        overflow: hidden;
+        height: 2rem;
+        font-size: 1rem;   
+    }
 }
