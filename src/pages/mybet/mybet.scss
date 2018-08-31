@@ -89,6 +89,9 @@ page-mybet {
     .m-top-4{
         margin-top: -4px;
     }
+    .m-top-12{
+        margin-top: -10px;
+    }
     
     .normal-button{
         overflow: visible;
@@ -106,5 +109,9 @@ page-mybet {
         overflow: hidden;
         height: 2rem;
         font-size: 1rem;   
+    }
+    
+    .header-back-bg{
+        background-image: url("../../assets/imgs/ui/split-bar.png");
     }
 }
