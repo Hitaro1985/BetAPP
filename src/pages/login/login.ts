@@ -42,11 +42,16 @@ export class LoginPage {
     this.authService.login(this.loginData).then((result) => {
       this.loading.dismiss();
       this.data = result;
+      this.presentToast("login post success");
+      console.log("login post success");
+      console.log(result);
       localStorage.setItem('token', this.data.access_token);
       this.app.getRootNav().setRoot(TabsPage);
     }, (err) => {
       this.loading.dismiss();
-      this.presentToast(err);
+      console.log("login post error");
+      console.log(err);
+      this.presentToast(JSON.stringify(err));
     });
   }
 

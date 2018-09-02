@@ -1,8 +1,8 @@
-//import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+//import { Http, Headers } from '@angular/http';
 
-let apiUrl = 'http://localhost:8000/api/'
+let apiUrl = 'http://lotbackendapps.skydeveloperonline.com/public/api/'
 
 /*
   Generated class for the AuthServiceProvider provider.
@@ -13,20 +13,23 @@ let apiUrl = 'http://localhost:8000/api/'
 @Injectable()
 export class AuthServiceProvider {
 
-  http: Http;
-
-  constructor() {
+  constructor(public http: HttpClient) {
     console.log('Hello AuthServiceProvider Provider');
   }
 
   login(credentials) {
     return new Promise((resolve, reject) => {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
+      let headers = new HttpHeaders();
+      headers.append('Access-Control-Allow-Origin' , '*');
+      headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+      headers.append('Accept','application/json');
+      headers.append('content-type','application/json');
+      console.log(apiUrl+'user/login');
+      console.log(JSON.stringify(credentials));
 
-      this.http.post(apiUrl+'login', JSON.stringify(credentials), {headers: headers})
+      this.http.post(apiUrl+'user/login', JSON.stringify(credentials), {headers: headers})
         .subscribe(res => {
-          resolve(res.json());
+          resolve(res);
         }, (err) => {
           reject(err);
         });
@@ -35,7 +38,7 @@ export class AuthServiceProvider {
 
   logout(){
     return new Promise((resolve, reject) => {
-      let headers = new Headers();
+      let headers = new HttpHeaders();
       headers.append('Content-Type', 'application/json');
 
       this.http.post(apiUrl+'logout', {}, {headers: headers})
