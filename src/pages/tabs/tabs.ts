@@ -10,12 +10,18 @@ import { MyProfilePage } from '../myprofile/myprofile';
 })
 export class TabsPage {
 
+  isloggingin: boolean;
+
   tab1Root = HomePage;
   tab2Root = MyBetPage;
   tab3Root = ResultPage;
   tab4Root = MyProfilePage;
 
   constructor() {
-
+    if( localStorage.getItem('user') == null ) {
+      this.isloggingin = false;
+    } else {
+      this.isloggingin = true;
+    }
   }
 }

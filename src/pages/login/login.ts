@@ -19,7 +19,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 export class LoginPage {
 
   loading: any;
-  loginData = { username:'', password:'' }
+  loginData = { email:'', password:'' }
   data: any;
 
   @ViewChild(NavController) navCtrl: NavController;
@@ -33,25 +33,24 @@ export class LoginPage {
 
   signin(){
     //this.app.getRootNav().setRoot(TabsPage);
-    console.log('username:', this.loginData.username);
-
-    console.log('password:', this.loginData.password);
 
     this.showLoader();
-    console.log(this.authService);
     this.authService.login(this.loginData).then((result) => {
       this.loading.dismiss();
       this.data = result;
-      this.presentToast("login post success");
-      console.log("login post success");
-      console.log(result);
-      localStorage.setItem('token', this.data.access_token);
-      this.app.getRootNav().setRoot(TabsPage);
+      if( this.data['response_code']  == 1) {
+        this.presentToast("login success");
+        localStorage.setItem('token', this.data['token']);
+        localStorage.setItem('user', JSON.stringify(this.data['user']));
+        this.app.getRootNav().setRoot(TabsPage);
+        //this.app.getActiveNav().pop();
+      } else {
+        this.presentToast(this.data['message']);
+      }
     }, (err) => {
       this.loading.dismiss();
-      console.log("login post error");
+      this.presentToast("Post Error");
       console.log(err);
-      this.presentToast(JSON.stringify(err));
     });
   }
 

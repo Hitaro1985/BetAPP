@@ -16,7 +16,15 @@ import { LoginPage } from '../login/login';
 })
 export class MyProfilePage {
 
+  user: any;
+  isloggingin: any;
+
   constructor(public app:App, public navCtrl: NavController, public navParams: NavParams) {
+    if( localStorage.getItem('user') == null ){
+      this.app.getRootNav().setRoot(LoginPage);
+    }
+    this.isloggingin = true;
+    this.user = JSON.parse(localStorage.getItem('user'));
   }
 
   ionViewDidLoad() {

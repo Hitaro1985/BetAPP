@@ -1,14 +1,22 @@
 <ion-header>
     <ion-grid style="padding: 0">
         <ion-row>
-            <ion-col col-2><img width="30" src="../../assets/imgs/ui/top-icon-user.png"><p class="header-text">test1234</p>
+            <ion-col col-2><img *ngIf="isloggingin == true" width="30" src="../../assets/imgs/ui/top-icon-user.png"><p *ngIf="isloggingin == true" class="header-text">{{ user['name'] }}</p>
             </ion-col>
-            <ion-col col-2><img width="30" src="../../assets/imgs/ui/top-icon-credit.png"><p class="header-text">MYR 189.00</p>
+            <ion-col col-2><img *ngIf="isloggingin == true" width="30" src="../../assets/imgs/ui/top-icon-credit.png"><p *ngIf="isloggingin == true" class="header-text">MYR {{ user['amount'] }}</p>
             </ion-col>
             <ion-col width-50 col-4 class="lotto"><img width="150" src="../../assets/imgs/ui/lotto-logo.png"></ion-col>
             <ion-col col-2><img width="30" src="../../assets/imgs/ui/top-icon-rules.png"><p class="header-text">Game Rules</p>
             </ion-col>
-            <ion-col col-2><img width="30" src="../../assets/imgs/ui/top-icon-sign.png"><p class="header-text">Sign In</p>
+            <ng-container *ngIf=" isloggingin; then loggedIn; else loggedOut" >
+            </ng-container>
+            <ion-col *ngIf="isloggingin == true" col-2><div (click)="signout()"><img width="30" src="../../assets/imgs/ui/top-icon-sign.png"><p class="header-text">
+                Sign Out
+            </p></div>
+            </ion-col>
+            <ion-col *ngIf="isloggingin == false" col-2><div (click)="signin()"><img width="30" src="../../assets/imgs/ui/top-icon-sign.png"><p class="header-text">
+                Sign In
+            </p></div>
             </ion-col>
         </ion-row>
         <ion-row class="headersplit">
@@ -20,74 +28,42 @@
 <ion-content class="buttons-components-page" style="padding: 0">
     <ion-grid style="padding: 0">
         <ion-row style="font-size: 10px; color: white;border: 1px solid #368fe8;border-left: 0;border-right: 0;">
-            <ion-col col-4 class="col_1_2">20180827 ROUND 72</ion-col>
-            <ion-col col-4 class="col_1_2">20180827 ROUND 71</ion-col>
+            <ion-col col-4 class="col_1_2"><span *ngIf="roundlastinfo">{{ this.roundlastdate }} {{ this.roundlastinfo['name'] }}</span></ion-col>
+            <ion-col col-4 class="col_1_2"><span *ngIf="roundcurrentinfo">{{ this.roundcurrentdate }} {{ this.roundcurrentinfo['roundname'] }}</span></ion-col>
             <ion-col col-4 class="col_3">
                 PASSED RESULT DRAWING NUMBER
             </ion-col>
             <ion-col col-4 style="border-right: 1px solid #368fe8;">
-                <p>Closed time : 27-8-2018 | 20:30:00</p>
+                <p>Closed time : <span *ngIf="roundlastinfo">{{ this.lastcloseddate }}</span></p>
                 <ion-row>
                     <ion-col col-4 style="margin-top: 5px;">LEFT</ion-col>
                     <ion-col col-3><img src="../../assets/imgs/ui/timer.png" /></ion-col>
-                    <ion-col col-5 style="font-size: 09px; margin-top: 5px;"><strong>00:27:15</strong></ion-col>
+                    <ion-col col-5 style="font-size: 09px; margin-top: 5px;"><strong *ngIf="roundcurrentinfo">{{ this.lefthours }}:{{ this.leftminutes }}:{{ this.leftseconds}}</strong></ion-col>
                 </ion-row>
             </ion-col>
             <ion-col col-4 style="border-right: 1px solid #368fe8;">
                 <ion-row>
                     <ion-col col-6 class="part1">
-                        <p style="font-size: x-large;color: black;margin-top: 15%;"><strong>3</strong></p>
+                        <p style="font-size: x-large;color: black;margin-top: 15%;"><strong *ngIf="roundcurrentinfo">{{ this.leftshowone }}</strong></p>
                     </ion-col>
                     <ion-col col-6 class="part2">
-                        <p style="font-size: x-large;color: black;margin-top: 15%;"><strong>3</strong></p>
+                        <p style="font-size: x-large;color: black;margin-top: 15%;"><strong *ngIf="roundcurrentinfo">{{ this.leftshowtwo }}</strong></p>
                     </ion-col>
                 </ion-row>
             </ion-col>
             <ion-col col-4>
                 <ion-row style="overflow: auto;height: 100px">
-                    <ion-col col-7>
-                        20180809-Round-57:
-                    </ion-col>
-                    <ion-col col-5>
-                        <ion-row>
-                            <ion-col col-6><span class="dot">1</span> </ion-col>
-                            <ion-col col-6><span class="dot">6</span></ion-col>
-                        </ion-row>
-                    </ion-col>
-                    <ion-col col-7>
-                        20180809-Round-58:
-                    </ion-col>
-                    <ion-col col-5>
-                        <ion-row>
-                            <ion-col col-6><span class="dot">1</span> </ion-col>
-                            <ion-col col-6><span class="dot">6</span></ion-col>
-                        </ion-row>
-                    </ion-col>
-                    <ion-col col-7>
-                        20180809-Round-59:
-                    </ion-col>
-                    <ion-col col-5>
-                        <ion-row>
-                            <ion-col col-6><span class="dot">1</span> </ion-col>
-                            <ion-col col-6><span class="dot">6</span></ion-col>
-                        </ion-row>
-                    </ion-col>
-                    <ion-col col-7>
-                        20180809-Round-60:
-                    </ion-col>
-                    <ion-col col-5>
-                        <ion-row>
-                            <ion-col col-6><span class="dot">1</span> </ion-col>
-                            <ion-col col-6><span class="dot">6</span></ion-col>
-                        </ion-row>
-                    </ion-col>
-                    <ion-col col-7>
-                        20180809-Round-61:
-                    </ion-col>
-                    <ion-col col-5>
-                        <ion-row>
-                            <ion-col col-6><span class="dot lightBlck">1</span> </ion-col>
-                            <ion-col col-6><span class="dot lightBlck">6</span></ion-col>
+                    <ion-col *ngIf="this.passedrounds">
+                        <ion-row *ngFor="let passedround of this.passedrounds;">
+                            <ion-col col-7>
+                                {{ passedround['name'] }}
+                            </ion-col>
+                            <ion-col col-5>
+                                <ion-row>
+                                    <ion-col col-6><span class="dot">{{ passedround['first'] }}</span> </ion-col>
+                                    <ion-col col-6><span class="dot">{{ passedround['second'] }}</span></ion-col>
+                                </ion-row>
+                            </ion-col>
                         </ion-row>
                     </ion-col>
                 </ion-row>
