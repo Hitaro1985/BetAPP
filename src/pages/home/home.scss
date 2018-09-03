@@ -114,6 +114,11 @@ page-home {
         font-size: 32px;
         color: white;
     }
+    .zero:active,
+    .cell:active,
+    .cellBlue:active {
+        background: white !important;
+    }
     .cellBlue {
        background-color:  #0d3867;
         color: white;

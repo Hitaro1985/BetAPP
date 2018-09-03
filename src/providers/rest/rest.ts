@@ -28,6 +28,20 @@ export class RestProvider {
     });
   }
 
+  confirmBet(content) {
+    let headers = new HttpHeaders()
+          .set('Accept','application/json')
+          .set('content-type','application/json');
+    return new Promise((resolve, reject) => {
+      this.http.post(apiUrl+'round/confirmBet', JSON.stringify(content), {headers: headers})
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
   getRoundInfo() {
     return new Promise((resolve, reject) => {
       this.http.post(apiUrl+'round/getCurrentInfo', {}, {})

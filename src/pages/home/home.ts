@@ -24,6 +24,9 @@ export class HomePage {
   leftshowone: string;
   leftshowtwo: string;
   passedrounds: any;
+  betamount: any;
+  totalbet: any;
+  betlist = {};
 
   table = [
     { no: 3, color: "#FF0000" }, { no: 6, color: "#1b1623" }, { no: 9, color: "#FF0000" }, { no: 12, color: "#FF0000" },
@@ -47,8 +50,10 @@ export class HomePage {
       this.user = JSON.parse(localStorage.getItem('user'));
       this.isloggingin = true;
     }
+    this.betamount = 1;
+    this.totalbet = 0;
     this.getInfo(rest);
-    Observable.interval(1000).subscribe( x => {
+    Observable.interval(100000).subscribe( x => {
       this.getInfo(rest);
     });
     this.loading.dismiss();
@@ -108,6 +113,60 @@ export class HomePage {
     }, (err) => {
       this.presentToast("Post Error");
     });
+  }
+
+  setbet(amount) {
+    this.betamount = amount;
+  }
+
+  betnumber(number) {
+    if( localStorage.getItem('user') == null ) {
+      this.presentToast("Please Login");
+    } else {
+      if(this.betlist[String(number)]) {
+        this.betlist[String(number)] = this.betlist[String(number)] + this.betamount;
+      } else {
+        this.betlist[String(number)] = this.betamount;
+      }
+      this.totalbet = this.totalbet + this.betamount;
+    }
+  }
+
+  rebet() {
+    this.totalbet = 0;
+    this.betlist = {};
+  }
+
+  betnow() {
+    if( localStorage.getItem('user') == null ) {
+      this.presentToast("Please Login");
+    } else {
+      var betstate;
+      betstate = '';
+      var i = 0;
+      this.showLoader();
+      for(i = 0; i < 46; i ++) {
+        if( this.betlist[String(i)] ) {
+          if( betstate == '') {
+            betstate = String(i) + "&" + this.betlist[String(i)];
+          } else {
+            betstate = betstate + "%" + String(i) + "&" + this.betlist[String(i)];
+          }
+        }
+      }
+      this.rest.confirmBet({"betstate":betstate}).then((result) => {
+        if( result['response_code']  == 1) {
+          this.presentToast("BET SUCCESS");
+        } else {
+          this.presentToast(result['message']);
+        }
+      }, (err) => {
+        this.presentToast("Post Error");
+        console.log(err);
+      });
+      this.rebet();
+      this.loading.dismiss();
+    }
   }
 
   signout() {

@@ -76,64 +76,64 @@
                 <li>Max - 2000</li>
             </ul>
             <ion-row>
-                <ion-col col-1 class="zero">0</ion-col>
+                <ion-col col-1 class="zero" (click)="betnumber(0);">0</ion-col>
                 <ion-col col-11 style="padding: 0">
                     <ion-row>
-                        <ion-col class="cell" col-1 *ngFor="let item of table;" [ngStyle]="{background:item.color}">
-                                 {{item.no}}
-                    </ion-col>
-                </ion-row>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col col-1>&nbsp;</ion-col>
-            <ion-col col-11 style="padding: 0">
-                <ion-row>
-                    <ion-col col-4 class="cellBlue">1st 12</ion-col>
-                    <ion-col col-4 class="cellBlue">2nd 12</ion-col>
-                    <ion-col col-4 class="cellBlue">3rd 12</ion-col>
+                        <ion-col class="cell" col-1 *ngFor="let item of table;" [ngStyle]="{background:item.color}" (click)="betnumber(item.no);">
+                            {{ item.no }}
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-1>&nbsp;</ion-col>
+                <ion-col col-11 style="padding: 0">
+                    <ion-row>
+                        <ion-col col-4 class="cellBlue" (click)="betnumber(37);">1st 12</ion-col>
+                        <ion-col col-4 class="cellBlue" (click)="betnumber(38);">2nd 12</ion-col>
+                        <ion-col col-4 class="cellBlue" (click)="betnumber(39);">3rd 12</ion-col>
 
-                    <ion-col no-padding col-4 class="">
-                        <ion-row>
-                            <ion-col col-6 class="cellBlue">1-18</ion-col>
-                            <ion-col col-6 class="cellBlue">EVEN</ion-col>
-                        </ion-row>
-                    </ion-col>
-                    <ion-col no-padding col-4 class="">
-                        <ion-row>
-                            <ion-col col-6 class="cellBlue" style="background-color: #1b1623">&nbsp;</ion-col>
-                            <ion-col col-6 class="cellBlue" style="background-color: red">&nbsp;</ion-col>
-                        </ion-row>
-                    </ion-col>
-                    <ion-col no-padding col-4 class="">
-                        <ion-row>
-                            <ion-col col-6 class="cellBlue">ODD</ion-col>
-                            <ion-col col-6 class="cellBlue">19-36</ion-col>
-                        </ion-row>
-                    </ion-col>
-                </ion-row>
-            </ion-col>
+                        <ion-col no-padding col-4 class="">
+                            <ion-row>
+                                <ion-col col-6 class="cellBlue" (click)="betnumber(40);">1-18</ion-col>
+                                <ion-col col-6 class="cellBlue" (click)="betnumber(41);">EVEN</ion-col>
+                            </ion-row>
+                        </ion-col>
+                        <ion-col no-padding col-4 class="">
+                            <ion-row>
+                                <ion-col col-6 class="cellBlue"  (click)="betnumber(42);" style="background-color: #1b1623">&nbsp;</ion-col>
+                                <ion-col col-6 class="cellBlue" (click)="betnumber(43);" style="background-color: red">&nbsp;</ion-col>
+                            </ion-row>
+                        </ion-col>
+                        <ion-col no-padding col-4 class="">
+                            <ion-row>
+                                <ion-col col-6 class="cellBlue"  (click)="betnumber(44);">ODD</ion-col>
+                                <ion-col col-6 class="cellBlue" (click)="betnumber(45);">19-36</ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-8 offset-2>
+                    <ul class="coins">
+                        <li><img [attr.width]="betamount == 1 ? 35 : 30" src="../../assets/imgs/ui/coins_1.png" (click)="setbet(1);"></li>
+                        <li><img [attr.width]="betamount == 5 ? 35 : 30" src="../../assets/imgs/ui/coins_2.png" (click)="setbet(5);"></li>
+                        <li><img [attr.width]="betamount == 10 ? 35 : 30" src="../../assets/imgs/ui/coins_3.png" (click)="setbet(10);"></li>
+                        <li><img [attr.width]="betamount == 50 ? 35 : 30" src="../../assets/imgs/ui/coins_4.png" (click)="setbet(50);"></li>
+                        <li><img [attr.width]="betamount == 100 ? 35 : 30" src="../../assets/imgs/ui/coins_5.png" (click)="setbet(100);"></li>
+                        <li><img [attr.width]="betamount == 500 ? 35 : 30" src="../../assets/imgs/ui/coins_6.png" (click)="setbet(500);"></li>
+                        <li><img [attr.width]="betamount == 1000 ? 35 : 30" src="../../assets/imgs/ui/coins_7.png" (click)="setbet(1000);"></li>
+                    </ul>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-3 offset-3 class="cellBlue" (click)="rebet();">REBET</ion-col>
+                <ion-col col-3 class="cellBlue" (click)="betnow();">BET NOW</ion-col>
+            </ion-row>
+        </div>
+        <ion-row style="background: url('../../assets/imgs/ui/split-bar.png');background-size: 100% 100%;">
+            <ion-col col-12 style="color:white">Total Bet: MYR {{ this.totalbet }}</ion-col>
         </ion-row>
-        <ion-row>
-            <ion-col col-8 offset-2>
-                <ul class="coins">
-                    <li><img width="30" src="../../assets/imgs/ui/coins_1.png"></li>
-                    <li><img width="30" src="../../assets/imgs/ui/coins_2.png"></li>
-                    <li><img width="30" src="../../assets/imgs/ui/coins_3.png"></li>
-                    <li><img width="30" src="../../assets/imgs/ui/coins_4.png"></li>
-                    <li><img width="30" src="../../assets/imgs/ui/coins_4.png"></li>
-                    <li><img width="30" src="../../assets/imgs/ui/coins_6.png"></li>
-                    <li><img width="30" src="../../assets/imgs/ui/coins_7.png"></li>
-                </ul>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col col-3 offset-3 class="cellBlue">REBET</ion-col>
-            <ion-col col-3 class="cellBlue">BET NOW</ion-col>
-        </ion-row>
-    </div>
-    <ion-row style="background: url('../../assets/imgs/ui/split-bar.png');background-size: 100% 100%;">
-        <ion-col col-12 style="color:white">Total Bet: MYR 170.00</ion-col>
-    </ion-row>
 </ion-grid>
 </ion-content>
