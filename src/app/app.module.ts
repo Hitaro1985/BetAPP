@@ -16,6 +16,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { RestProvider } from '../providers/rest/rest';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { RestProvider } from '../providers/rest/rest';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
-    RestProvider
+    RestProvider,
+    DatePipe
   ]
 })
 export class AppModule {}

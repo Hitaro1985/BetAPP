@@ -31,10 +31,10 @@
           <img src="../../assets/imgs/ui/unknownuser.png" />
       </div>
       <div class="userdetail">
-          <p>
+          <p *ngIf="isloggingin == true">
               {{ user['email'] }}
           </p>
-          <p>
+          <p *ngIf="isloggingin == true">
               {{ user['phoneno'] }}
           </p>
       </div>

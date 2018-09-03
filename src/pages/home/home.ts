@@ -3,6 +3,7 @@ import { NavController, App, LoadingController, ToastController } from 'ionic-an
 import { LoginPage } from '../login/login';
 import { RestProvider } from '../../providers/rest/rest';
 import {Observable} from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-home',
@@ -27,6 +28,7 @@ export class HomePage {
   betamount: any;
   totalbet: any;
   betlist = {};
+  observableVar: Subscription;
 
   table = [
     { no: 3, color: "#FF0000" }, { no: 6, color: "#1b1623" }, { no: 9, color: "#FF0000" }, { no: 12, color: "#FF0000" },
@@ -52,11 +54,17 @@ export class HomePage {
     }
     this.betamount = 1;
     this.totalbet = 0;
-    this.getInfo(rest);
-    Observable.interval(100000).subscribe( x => {
-      this.getInfo(rest);
-    });
     this.loading.dismiss();
+  }
+
+  ionViewWillEnter() {
+    this.observableVar = Observable.interval(1000).subscribe( x => {
+      this.getInfo(this.rest);
+    });
+  }
+
+  ionViewWillLeave() {
+    this.observableVar.unsubscribe();
   }
 
   getInfo(rest) {

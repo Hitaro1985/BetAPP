@@ -1,115 +1,50 @@
 <ion-header>
-    <ion-grid>
+    <ion-grid style="padding: 0">
         <ion-row>
-            <ion-col col-2><img width="30" src="../../assets/imgs/ui/top-icon-user.png"><p class="header-text">test1234</p></ion-col>
-            <ion-col col-2><img width="30" src="../../assets/imgs/ui/top-icon-credit.png"><p class="header-text">MYR 189.00</p></ion-col>
+            <ion-col col-2><img *ngIf="isloggingin == true" width="30" src="../../assets/imgs/ui/top-icon-user.png"><p *ngIf="isloggingin == true" class="header-text">{{ user['name'] }}</p>
+            </ion-col>
+            <ion-col col-2><img *ngIf="isloggingin == true" width="30" src="../../assets/imgs/ui/top-icon-credit.png"><p *ngIf="isloggingin == true" class="header-text">MYR {{ user['amount'] }}</p>
+            </ion-col>
             <ion-col width-50 col-4 class="lotto"><img width="150" src="../../assets/imgs/ui/lotto-logo.png"></ion-col>
-            <ion-col col-2><img width="30" src="../../assets/imgs/ui/top-icon-rules.png"><p class="header-text">Game Rules</p></ion-col>
-            <ion-col col-2><img width="30" src="../../assets/imgs/ui/top-icon-sign.png"><p class="header-text">Sign In</p></ion-col>
+            <ion-col col-2><img width="30" src="../../assets/imgs/ui/top-icon-rules.png"><p class="header-text">Game Rules</p>
+            </ion-col>
+            <ng-container *ngIf=" isloggingin; then loggedIn; else loggedOut" >
+            </ng-container>
+            <ion-col *ngIf="isloggingin == true" col-2><div (click)="signout()"><img width="30" src="../../assets/imgs/ui/top-icon-sign.png"><p class="header-text">
+                Sign Out
+            </p></div>
+            </ion-col>
+            <ion-col *ngIf="isloggingin == false" col-2><div (click)="signin()"><img width="30" src="../../assets/imgs/ui/top-icon-sign.png"><p class="header-text">
+                Sign In
+            </p></div>
+            </ion-col>
         </ion-row>
-        <ion-row class="headersplit header-back-bg">
+        <ion-row class="headersplit">
             <img src="../../assets/imgs/ui/split-bar.png" />
-
-            <!--            <ion-label>Date</ion-label>
-                        <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="myDate"></ion-datetime>-->
-
         </ion-row>
     </ion-grid>
 </ion-header>
 
 <ion-content>
-    <ion-grid>
-        <ion-row>
+    <ion-grid *ngIf="this.datas">
+        <ion-row *ngFor=" let data of this.datas ">
             <ion-col class="text-left">
-                <p class="p-b-5">Agent 10 # MING321 #19</p>
-                <p class="p-b-5">Number #36,27,19,18=MYR <span>200.00</span></p>
-                <p class="p-b-5">Number #27=MYR <span>50.00</span></p>
-                <p>Total MYR <span>250.00</span></p>
+                <p class="p-b-5">{{ data['name']}} # {{ data['round'] }}</p>
+                <p class="p-b-5" *ngFor=" let betst of data['betstate'] "> {{ betst }} </p>
+                <p>Total MYR <span>{{ data['total'] }}</span></p>
             </ion-col>
             <ion-col col-5 class="text-right">
                 <button ion-button color="light" clear icon-only class="m-top-12">
                     <ion-icon name="ios-close-circle-outline"></ion-icon>
                 </button>
-                <p class="m-top-4">27-09-2018 20:18:17</p>
-                <button ion-button item-end outline class="normal-button">Running</button>
-                <ion-row>
-                    <ion-col class="text-right p-r-5">
-                        <button ion-button item-end outline class="blue-button">Print</button>
-                    </ion-col>
-                    <ion-col class="text-right p-r-5">
-                        <button ion-button item-end outline class="blue-button">Share</button>
-                    </ion-col>
-                </ion-row>
-            </ion-col>
-            <ion-row class="headersplit">
-                <img src="../../assets/imgs/ui/split-bar.png" />
-            </ion-row>
-        </ion-row>
-        <ion-row>
-            <ion-col class="text-left">
-                <p class="p-b-5">Agent 10 # MING321 #19</p>
-                <p class="p-b-5">Number #36,27,19,18=MYR <span>200.00</span></p>
-                <p class="p-b-5">Number #27=MYR <span>50.00</span></p>
-                <p>Total MYR <span>250.00</span></p>
-            </ion-col>
-            <ion-col col-5 class="text-right">
-                <button ion-button color="light" clear icon-only class="m-top-12">
-                    <ion-icon name="ios-close-circle-outline"></ion-icon>
-                </button>
-                <p class="m-top-4">27-09-2018 20:18:17</p>
-                <button ion-button item-end outline class="normal-button">Win</button>
-                <ion-row>
-                    <ion-col class="text-right p-r-5">
-                        <button ion-button item-end outline class="blue-button">Print</button>
-                    </ion-col>
-                    <ion-col class="text-right p-r-5">
-                        <button ion-button item-end outline class="blue-button">Share</button>
-                    </ion-col>
-                </ion-row>
-            </ion-col>
-            <ion-row class="headersplit">
-                <img src="../../assets/imgs/ui/split-bar.png" />
-            </ion-row>
-        </ion-row>
-        <ion-row>
-            <ion-col class="text-left">
-                <p class="p-b-5">Agent 10 # MING321 #19</p>
-                <p class="p-b-5">Number #36,27,19,18=MYR <span>200.00</span></p>
-                <p class="p-b-5">Number #27=MYR <span>50.00</span></p>
-                <p>Total MYR <span>250.00</span></p>
-            </ion-col>
-            <ion-col col-5 class="text-right">
-                <button ion-button color="light" clear icon-only class="m-top-12">
-                    <ion-icon name="ios-close-circle-outline"></ion-icon>
-                </button>
-                <p class="m-top-4">27-09-2018 20:18:17</p>
-                <button ion-button item-end outline class="normal-button">Loss</button>
-                <ion-row>
-                    <ion-col class="text-right p-r-5">
-                        <button ion-button item-end outline class="blue-button">Print</button>
-                    </ion-col>
-                    <ion-col class="text-right p-r-5">
-                        <button ion-button item-end outline class="blue-button">Share</button>
-                    </ion-col>
-                </ion-row>
-            </ion-col>
-            <ion-row class="headersplit">
-                <img src="../../assets/imgs/ui/split-bar.png" />
-            </ion-row>
-        </ion-row>
-        <ion-row>
-            <ion-col class="text-left">
-                <p class="p-b-5">Agent 10 # MING321 #19</p>
-                <p class="p-b-5">Number #36,27,19,18=MYR <span>200.00</span></p>
-                <p class="p-b-5">Number #27=MYR <span>50.00</span></p>
-                <p>Total MYR <span>250.00</span></p>
-            </ion-col>
-            <ion-col col-5 class="text-right">
-                <button ion-button color="light" clear icon-only class="m-top-12">
-                    <ion-icon name="ios-close-circle-outline"></ion-icon>
-                </button>
-                <p class="m-top-4">27-09-2018 20:18:17</p>
-                <button ion-button item-end outline class="normal-button">Win</button>
+                <p class="m-top-4">{{ data['created_at'] }}</p>
+                <div *ngIf="data['wls']; then resultex else resultnon"></div>
+                <ng-template #resultex>
+                    <button ion-button item-end outline class="normal-button">{{ data['wls'] }}</button>
+                </ng-template>
+                <ng-template #resultnon>
+                    <button ion-button item-end outline class="normal-button">Running</button>
+                </ng-template>    
                 <ion-row>
                     <ion-col class="text-right p-r-5">
                         <button ion-button item-end outline class="blue-button">Print</button>

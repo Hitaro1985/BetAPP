@@ -1,11 +1,23 @@
 <ion-header>
-    <ion-grid>
+    <ion-grid style="padding: 0">
         <ion-row>
-            <ion-col col-2><img width="30" src="../../assets/imgs/ui/top-icon-user.png"><p class="header-text">test1234</p></ion-col>
-            <ion-col col-2><img width="30" src="../../assets/imgs/ui/top-icon-credit.png"><p class="header-text">MYR 189.00</p></ion-col>
+            <ion-col col-2><img *ngIf="isloggingin == true" width="30" src="../../assets/imgs/ui/top-icon-user.png"><p *ngIf="isloggingin == true" class="header-text">{{ user['name'] }}</p>
+            </ion-col>
+            <ion-col col-2><img *ngIf="isloggingin == true" width="30" src="../../assets/imgs/ui/top-icon-credit.png"><p *ngIf="isloggingin == true" class="header-text">MYR {{ user['amount'] }}</p>
+            </ion-col>
             <ion-col width-50 col-4 class="lotto"><img width="150" src="../../assets/imgs/ui/lotto-logo.png"></ion-col>
-            <ion-col col-2><img width="30" src="../../assets/imgs/ui/top-icon-rules.png"><p class="header-text">Game Rules</p></ion-col>
-            <ion-col col-2><img width="30" src="../../assets/imgs/ui/top-icon-sign.png"><p class="header-text">Sign In</p></ion-col>
+            <ion-col col-2><img width="30" src="../../assets/imgs/ui/top-icon-rules.png"><p class="header-text">Game Rules</p>
+            </ion-col>
+            <ng-container *ngIf=" isloggingin; then loggedIn; else loggedOut" >
+            </ng-container>
+            <ion-col *ngIf="isloggingin == true" col-2><div (click)="signout()"><img width="30" src="../../assets/imgs/ui/top-icon-sign.png"><p class="header-text">
+                Sign Out
+            </p></div>
+            </ion-col>
+            <ion-col *ngIf="isloggingin == false" col-2><div (click)="signin()"><img width="30" src="../../assets/imgs/ui/top-icon-sign.png"><p class="header-text">
+                Sign In
+            </p></div>
+            </ion-col>
         </ion-row>
         <ion-row class="headersplit">
             <img src="../../assets/imgs/ui/split-bar.png" />
@@ -16,89 +28,15 @@
 <ion-content class="buttons-components-page" >
     <ion-grid >
 
-        <ion-list >
-            <ion-item class="list-white">
-                20180809-Round-01 :
-                <ion-badge id="circle-badge">5</ion-badge>
-                <ion-badge id="circle-badge">1</ion-badge>
+        <ion-list *ngIf="this.datas" >
+            <ion-item class="list-white"  *ngFor=" let data of this.datas ">
+                {{ data['date'] }}-{{ data['name'] }} :
+                <ion-badge id="circle-badge">{{ data['first'] }}</ion-badge>
+                <ion-badge id="circle-badge">{{ data['second'] }}</ion-badge>
                 <ion-note item-end>
-                    00:00
-                </ion-note>
-
-            </ion-item>
-            <ion-item class="list-white">
-                20180809-Round-02 :
-                <ion-badge id="circle-badge">5</ion-badge>
-                <ion-badge id="circle-badge">1</ion-badge>
-                <ion-note item-end>
-                    00:30
+                    {{ data['time'] }}
                 </ion-note>
             </ion-item>
-            <ion-item class="list-white">
-                20180809-Round-03 :
-                <ion-badge id="circle-badge">5</ion-badge>
-                <ion-badge id="circle-badge">1</ion-badge>
-                <ion-note item-end>
-                    01:00
-                </ion-note>
-            </ion-item>
-            <ion-item class="list-white">
-                20180809-Round-04 :
-                <ion-badge id="circle-badge">5</ion-badge>
-                <ion-badge id="circle-badge">1</ion-badge>
-                <ion-note item-end>
-                    01:30
-                </ion-note>
-            </ion-item>
-            <ion-item class="list-white">
-                20180809-Round-57 :
-                <ion-badge id="circle-badge">5</ion-badge>
-                <ion-badge id="circle-badge">1</ion-badge>
-                <ion-note item-end>
-                    02:00
-                </ion-note>
-            </ion-item>
-            <ion-item class="list-white">
-                20180809-Round-05 :
-                <ion-badge id="circle-badge">5</ion-badge>
-                <ion-badge id="circle-badge">1</ion-badge>
-                <ion-note item-end>
-                    02:30
-                </ion-note>
-            </ion-item>
-            <ion-item class="list-white">
-                20180809-Round-06 :
-                <ion-badge id="circle-badge">5</ion-badge>
-                <ion-badge id="circle-badge">1</ion-badge>
-                <ion-note item-end>
-                    03:00
-                </ion-note>
-            </ion-item>
-            <ion-item class="list-white">
-                20180809-Round-07 :
-                <ion-badge id="circle-badge">5</ion-badge>
-                <ion-badge id="circle-badge">1</ion-badge>
-                <ion-note item-end>
-                    03:30
-                </ion-note>
-            </ion-item>
-            <ion-item class="list-white">
-                20180809-Round-08 :
-                <ion-badge id="circle-badge">5</ion-badge>
-                <ion-badge id="circle-badge">1</ion-badge>
-                <ion-note item-end>
-                    04:00
-                </ion-note>
-            </ion-item>
-            <ion-item class="list-white">
-                20180809-Round-09 :
-                <ion-badge id="circle-badge">5</ion-badge>
-                <ion-badge id="circle-badge">1</ion-badge>
-                <ion-note item-end>
-                    04:30
-                </ion-note>
-            </ion-item>
-
         </ion-list>
 
     </ion-grid>
