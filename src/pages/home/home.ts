@@ -58,6 +58,7 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    this.getInfo(this.rest);
     this.observableVar = Observable.interval(1000).subscribe( x => {
       this.getInfo(this.rest);
     });

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { LoginPage } from '../login/login';
+import { BetPage } from '../bet/bet';
 
 /**
  * Generated class for the MyprofilePage page.
@@ -18,8 +19,10 @@ export class MyProfilePage {
 
   user: any;
   isloggingin: any;
+  betPage: any;
 
   constructor(public app:App, public navCtrl: NavController, public navParams: NavParams) {
+    this.betPage = BetPage;
     if( localStorage.getItem('user') == null ){
       this.app.getRootNav().setRoot(LoginPage);
     } else {
@@ -32,6 +35,11 @@ export class MyProfilePage {
     if( localStorage.getItem('user') == null ){
       this.app.getRootNav().setRoot(LoginPage);
     }
+  }
+
+  clickBet() {
+    console.log("click Bet Clicked");
+    this.app.getRootNav().push(BetPage);
   }
 
   clickReport() {

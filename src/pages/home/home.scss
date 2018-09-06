@@ -114,11 +114,11 @@ page-home {
         font-size: 32px;
         color: white;
     }
-    .zero:active,
-    .cell:active,
-    .cellBlue:active {
-        background: white !important;
-    }
+    // .zero:active,
+    // .cell:active,
+    // .cellBlue:active {
+    //     background: white !important;
+    // }
     .cellBlue {
        background-color:  #0d3867;
         color: white;
@@ -145,5 +145,9 @@ page-home {
             list-style: none;
             padding-left: 3%;
         }
+    }
+    .closeTime {
+        padding-top: 20px;
+        font-size: 8px;
     }
 }

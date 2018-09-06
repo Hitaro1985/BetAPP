@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { RestProvider } from '../providers/rest/rest';
 import { DatePipe } from '@angular/common';
+import { BetPage } from '../pages/bet/bet';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DatePipe } from '@angular/common';
     ResultPage,
     HomePage,
     MyProfilePage,
-    TabsPage
+    TabsPage,
+    BetPage
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,8 @@ import { DatePipe } from '@angular/common';
     ResultPage,
     HomePage,
     MyProfilePage,
-    TabsPage
+    TabsPage,
+    BetPage
   ],
   providers: [
     StatusBar,
