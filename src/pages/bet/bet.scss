@@ -1,3 +1,94 @@
 page-bet {
-
+    .bet-grid {
+        border-color: #0171c3;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+    .cell-none {
+        background: transparent;
+    }
+    .cell0 {
+        background-color: white;
+        color: green;
+        border-bottom: 1px solid #0171c3;
+        border-right: 2px solid #0171c3;
+        border-radius: 5px 5px 0px 0px;
+    }
+    .center {
+        text-align: center;
+    }
+    *[class^="cell"] {
+        text-align: center;
+        font-weight: bold;
+    }
+    .cell {
+        border-bottom: 1px solid #0171c3;
+        border-right: 1px solid #0171c3;
+    }
+    .small-cell {
+        border-right: 1px solid #0171c3;
+    }
+    .nopadding {
+        padding: 0;
+    }
+    .cellback {
+        background-color: white;
+    }
+    .backyellow {
+        background-color: yellow;
+    }
+    .leftcell {
+        height: 33%;
+    }
+    .lastcell {
+        height: 34%;
+    }
+    .redfont {
+        color: red;
+    }
+    .leftone {
+        height: 100%;
+        background-color: orange;
+    }
+    .first12 {
+        border-radius: 5px 0px 0px 0px;
+    }
+    .num36 {
+        border-radius: 0px 0px 5px 0px;
+    }
+    .black {
+        border-radius: 0px 0px 0px 5px;
+    }
+    .ion-input input {
+        width: 100px;
+    }
+    .submit {
+        margin-left: 5px;
+        padding: 5px 10px 5px 10px;
+        background: #59d;
+        color: #fff;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+        display: inline-block;
+        font: 700 12px/1 'Open Sans', sans-serif;
+        border-radius: 3px;
+        box-shadow: inset 0 -1px 0 1px rgba(0, 0, 0, 0.1), inset 0 -10px 20px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+    }
+    .rebet {
+        padding: 5px 17px 5px 17px;
+        background: #6b6;
+        color: #fff;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+        display: inline-block;
+        font: 700 12px/1 'Open Sans', sans-serif;
+        border-radius: 3px;
+        box-shadow: inset 0 -1px 0 1px rgba(0, 0, 0, 0.1), inset 0 -10px 20px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+    }
+    .height78 {
+        height: 78%;
+    }
+    .height93 {
+        height: 93%;
+    }
 }

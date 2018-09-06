@@ -5,47 +5,296 @@
   Ionic pages and navigation.
 -->
 
-<div style="height: 93%;">
+<!-- <div style="height: 78%;"> -->
+<div [ngClass]="{'height93': this.betlist == null, 'height78': this.betlist != null}">
   <div style=" background: -webkit-radial-gradient(center, ellipse cover, #0171c3 1%,#001765 100%);padding-bottom: 15px; height: 100%;">
+    <ion-grid padding class="bet-grid" style="margin: auto;">
       <ion-row>
-          <ion-col col-1 class="zero">0</ion-col>
-          <ion-col col-11 style="padding: 0">
-              <ion-row>
-                  <ion-col class="cell" col-1 *ngFor="let item of table;" [ngStyle]="{background:item.color}">
-                      {{ item.no }}
+        <ion-col class="center">
+          <img width="150" src="../../assets/imgs/ui/lotto-logo.png">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="cell-none" col-2>
+        </ion-col>
+        <ion-col class="cell-none" col-3>
+        </ion-col>
+        <ion-col class="cell0" col-6 (click)="bet(0);">
+          0
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="cell-none" col-2>
+        </ion-col>
+        <ion-col class="cell nopadding" col-3>
+            <ion-row class="cell center cellback leftcell first12" (click)="bet(37);">
+              <ion-col>
+                <span>
+                  <div class="leftone">
+                    <span>
+                      1st 12
+                    </span>
+                  </div>
+                </span>
+              </ion-col>
+            </ion-row>
+            <ion-row class="cell leftcell cellback" (click)="bet(40);">
+                <ion-col>
+                  <span>
+                    <div class="leftone">
+                      <span>
+                        1-18
+                      </span>
+                    </div>
+                  </span>
+                </ion-col>
+            </ion-row>
+            <ion-row class="cell lastcell cellback" (click)="bet(45);">
+                <ion-col>
+                  <span>
+                    <div class="leftone">
+                      <span>
+                        19-36
+                      </span>
+                    </div>
+                  </span>
+                </ion-col>
+            </ion-row>
+        </ion-col>
+        <ion-col class="cell nopadding" col-6>
+          <ion-row class="cell">
+            <ion-col class="cellback small-cell redfont" (click)="bet(1);">
+              1
+            </ion-col>
+            <ion-col class="cellback small-cell" (click)="bet(2);">
+              2
+            </ion-col>
+            <ion-col class="cellback small-cell redfont" (click)="bet(3);">
+              3
+            </ion-col>
+          </ion-row>
+          <ion-row class="cell">
+            <ion-col class="cellback small-cell" (click)="bet(4);">
+              4
+            </ion-col>
+            <ion-col class="cellback small-cell redfont" (click)="bet(5);">
+              5
+            </ion-col>
+            <ion-col class="cellback small-cell" (click)="bet(6);">
+              6
+            </ion-col>
+          </ion-row>
+          <ion-row class="cell">
+            <ion-col class="cellback small-cell redfont" (click)="bet(7);">
+              7
+            </ion-col>
+            <ion-col class="cellback small-cell" (click)="bet(8);">
+              8
+            </ion-col>
+            <ion-col class="cellback small-cell redfont" (click)="bet(9);">
+              9
+            </ion-col>
+          </ion-row>
+          <ion-row class="cell">
+            <ion-col class="cellback small-cell" (click)="bet(10);">
+              10
+            </ion-col>
+            <ion-col class="cellback small-cell" (click)="bet(11);">
+              11
+            </ion-col>
+            <ion-col class="cellback small-cell redfont" (click)="bet(12);">
+              12
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col class="cell-none" col-2>
+          </ion-col>
+          <ion-col class="cell nopadding" col-3>
+              <ion-row class="cell center cellback leftcell" (click)="bet(38);">
+                  <ion-col>
+                    <span>
+                      <div class="leftone">
+                        <span>
+                          2nd 12
+                        </span>
+                      </div>
+                    </span>
+                  </ion-col>
+              </ion-row>
+              <ion-row class="cell leftcell cellback" (click)="bet(44);">
+                  <ion-col>
+                    <span>
+                      <div class="leftone">
+                        <span>
+                          ODD
+                        </span>
+                      </div>
+                    </span>
+                  </ion-col>
+              </ion-row>
+              <ion-row class="cell leftcell cellback" (click)="bet(41);">
+                  <ion-col>
+                    <span>
+                      <div class="leftone">
+                        <span>
+                          Even
+                        </span>
+                      </div>
+                    </span>
                   </ion-col>
               </ion-row>
           </ion-col>
-      </ion-row>
-      <ion-row>
-          <ion-col col-1>&nbsp;</ion-col>
-          <ion-col col-11 style="padding: 0">
-              <ion-row>
-                  <ion-col col-4 class="cellBlue">1st 12</ion-col>
-                  <ion-col col-4 class="cellBlue">2nd 12</ion-col>
-                  <ion-col col-4 class="cellBlue">3rd 12</ion-col>
-
-                  <ion-col no-padding col-4 class="">
-                      <ion-row>
-                          <ion-col col-6 class="cellBlue">1-18</ion-col>
-                          <ion-col col-6 class="cellBlue">EVEN</ion-col>
-                      </ion-row>
-                  </ion-col>
-                  <ion-col no-padding col-4 class="">
-                      <ion-row>
-                          <ion-col col-6 class="cellBlue" style="background-color: #1b1623">&nbsp;</ion-col>
-                          <ion-col col-6 class="cellBlue" style="background-color: red">&nbsp;</ion-col>
-                      </ion-row>
-                  </ion-col>
-                  <ion-col no-padding col-4 class="">
-                      <ion-row>
-                          <ion-col col-6 class="cellBlue">ODD</ion-col>
-                          <ion-col col-6 class="cellBlue">19-36</ion-col>
-                      </ion-row>
-                  </ion-col>
-              </ion-row>
+          <ion-col class="cell nopadding" col-6>
+            <ion-row class="cell">
+              <ion-col class="cellback small-cell" (click)="bet(13);">
+                13
+              </ion-col>
+              <ion-col class="cellback small-cell redfont" (click)="bet(14);">
+                14
+              </ion-col>
+              <ion-col class="cellback small-cell" (click)="bet(15);">
+                15
+              </ion-col>
+            </ion-row>
+            <ion-row class="cell">
+              <ion-col class="cellback small-cell redfont" (click)="bet(16);">
+                16
+              </ion-col>
+              <ion-col class="cellback small-cell" (click)="bet(17);">
+                17
+              </ion-col>
+              <ion-col class="cellback small-cell redfont" (click)="bet(18);">
+                18
+              </ion-col>
+            </ion-row>
+            <ion-row class="cell">
+              <ion-col class="cellback small-cell redfont" (click)="bet(19);">
+                19
+              </ion-col>
+              <ion-col class="cellback small-cell" (click)="bet(20);">
+                20
+              </ion-col>
+              <ion-col class="cellback small-cell redfont" (click)="bet(21);">
+                21
+              </ion-col>
+            </ion-row>
+            <ion-row class="cell">
+              <ion-col class="cellback small-cell" (click)="bet(22);">
+                22
+              </ion-col>
+              <ion-col class="cellback small-cell redfont" (click)="bet(23);">
+                23
+              </ion-col>
+              <ion-col class="cellback small-cell" (click)="bet(24);">
+                24
+              </ion-col>
+            </ion-row>
           </ion-col>
-      </ion-row>
+        </ion-row>
+        <ion-row>
+            <ion-col class="cell-none" col-2>
+            </ion-col>
+            <ion-col class="cell nopadding" col-3>
+                <ion-row class="cell center cellback leftcell" (click)="bet(39);">
+                    <ion-col>
+                      <span>
+                        <div class="leftone">
+                          <span>
+                            3rd 12
+                          </span>
+                        </div>
+                      </span>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="cell leftcell cellback" (click)="bet(43);">
+                    <ion-col>
+                      <span>
+                        <div class="leftone">
+                          <span class="redfont">
+                            RED
+                          </span>
+                        </div>
+                      </span>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="cell leftcell cellback black" (click)="bet(42);">
+                    <ion-col>
+                      <span>
+                        <div class="leftone">
+                          <span>
+                            BLACK
+                          </span>
+                        </div>
+                      </span>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+            <ion-col class="cell nopadding" col-6>
+              <ion-row class="cell">
+                <ion-col class="cellback small-cell redfont" (click)="bet(25);">
+                  25
+                </ion-col>
+                <ion-col class="cellback small-cell" (click)="bet(26);">
+                  26
+                </ion-col>
+                <ion-col class="cellback small-cell redfont" (click)="bet(27);">
+                  27
+                </ion-col>
+              </ion-row>
+              <ion-row class="cell">
+                <ion-col class="cellback small-cell" (click)="bet(28);">
+                  28
+                </ion-col>
+                <ion-col class="cellback small-cell" (click)="bet(29);">
+                  29
+                </ion-col>
+                <ion-col class="cellback small-cell redfont" (click)="bet(30);">
+                  30
+                </ion-col>
+              </ion-row>
+              <ion-row class="cell">
+                <ion-col class="cellback small-cell" (click)="bet(31);">
+                  31
+                </ion-col>
+                <ion-col class="cellback small-cell redfont" (click)="bet(32);">
+                  32
+                </ion-col>
+                <ion-col class="cellback small-cell" (click)="bet(33);">
+                  33
+                </ion-col>
+              </ion-row>
+              <ion-row class="cell">
+                <ion-col class="cellback small-cell redfont" (click)="bet(34);">
+                  34
+                </ion-col>
+                <ion-col class="cellback small-cell" (click)="bet(35);">
+                  35
+                </ion-col>
+                <ion-col class="cellback small-cell redfont num36" (click)="bet(36);">
+                  36
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+    </ion-grid>
   </div>
 </div>
-<button style="height: 7%;" ion-item (click)="back();">Back</button>
+<div style="height: 15%;" padding *ngIf="this.betlist != null">
+  <div style="height: 70%; overflow-y: scroll;">
+    {{ this.bets }}
+  </div>
+  <div style="height: 30%;">
+    <ion-item style="width: 20%; display: inline-block;">
+      <ion-input type="number" placeholder="Amount" class="ion-input" [(ngModel)]="amount" (input)="onChangeAmount();"></ion-input>
+    </ion-item>
+    <ion-item style="width: 79%; display: inline-block; padding-left: 0px;">
+      Amount  Total
+      <span id="totallabel">{{ this.total }}</span>
+      <button class="submit" (click)="submit();">Submit</button>
+      <button class="rebet" (click)="rebet();">Rebet</button>
+    </ion-item>
+  </div>
+</div>
+<button style="height: 7%; text-align: center;" ion-item (click)="back();">Back</button>

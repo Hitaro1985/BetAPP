@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App, LoadingController, ToastController } from 'ionic-angular';
+import { RestProvider } from '../../providers/rest/rest';
 
 /**
  * Generated class for the BetPage page.
@@ -14,30 +15,129 @@ import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
   templateUrl: 'bet.html',
 })
 export class BetPage {
-  
-  table = [
-    { no: 3, color: "#FF0000" }, { no: 6, color: "#1b1623" }, { no: 9, color: "#FF0000" }, { no: 12, color: "#FF0000" },
-    { no: 15, color: "#1b1623" }, { no: 18, color: "#FF0000" }, { no: 21, color: "#FF0000" }, { no: 24, color: "#1b1623" },
-    { no: 27, color: "#FF0000" }, { no: 30, color: "#FF0000" }, { no: 33, color: "#1b1623" }, { no: 36, color: "#FF0000" },
 
-    { no: 2, color: "#1b1623" }, { no: 5, color: "#FF0000" }, { no: 8, color: "#1b1623" }, { no: 11, color: "#1b1623" },
-    { no: 14, color: "#FF0000" }, { no: 17, color: "#1b1623" }, { no: 20, color: "#1b1623" }, { no: 23, color: "#FF0000" },
-    { no: 26, color: "#1b1623" }, { no: 29, color: "#1b1623" }, { no: 32, color: "#FF0000" }, { no: 35, color: "#1b1623" },
+  loading: any;
+  total: any;
+  bets: any;
+  amount: any;
+  betlist: any;
 
-    { no: 1, color: "#FF0000" }, { no: 4, color: "#1b1623" }, { no: 7, color: "#FF0000" }, { no: 10, color: "#1b1623" },
-    { no: 13, color: "#1b1623" }, { no: 16, color: "#FF0000" }, { no: 19, color: "#FF0000" }, { no: 22, color: "#1b1623" },
-    { no: 25, color: "#FF0000" }, { no: 28, color: "#1b1623" }, { no: 31, color: "#1b1623" }, { no: 34, color: "#FF0000" },
-  ];
+  texts = ["1st", "2nd", "3rd", "1-18", "EVEN", "BLACK", "RED", "ODD", "19-36"];
 
-  constructor(public app:App, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public app:App, public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, private toastCtrl: ToastController, public rest: RestProvider) {
+    this.total = 0;
+    this.amount = 0;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BetPage');
+  }
+
+  bet(amount) {
+    if( this.betlist == null ) {
+      this.betlist = {}
+    }
+    var text;
+    if( amount > 36 ) {
+      text = this.texts[amount - 37];
+    } else {
+      text = String(amount);
+    }
+    if( this.bets == null ) {
+      this.bets = text;
+    } else {
+      this.bets = this.bets + "," + text;
+    }
+    if(this.betlist[String(amount)]) {
+      this.betlist[String(amount)] = this.betlist[String(amount)] + 1;
+    } else {
+      this.betlist[String(amount)] = 1;
+    }
+    this.onChangeAmount();
+  }
+
+  onChangeAmount() : void {
+    this.total = 0;
+    var i = 0;
+    for(i = 0; i < 46; i ++) {
+      if( this.betlist[String(i)] ) {
+        this.total = this.total + this.betlist[String(i)] * this.amount;
+      }
+    }
+  }
+
+  rebet() {
+    this.total = 0;
+    this.betlist = null;
+    this.bets = null;
+    this.amount = 0;
+  }
+
+  submit() {
+    if( this.amount == 0 ) {
+      this.presentToast("Amount 0 is invalid. Please input amount.");
+    } else {
+      var betstate;
+      betstate = '';
+      var i = 0;
+      this.showLoader();
+      for(i = 0; i < 46; i ++) {
+        if( this.betlist[String(i)] ) {
+          if( betstate == '') {
+            betstate = String(i) + "&" + this.betlist[String(i)] * this.amount;
+          } else {
+            betstate = betstate + "%" + String(i) + "&" + this.betlist[String(i)] * this.amount;
+          }
+        }
+      }
+      this.rest.confirmBet({"betstate":betstate, "totalbet":this.total}).then((result) => {
+        if( result['response_code']  == 1) {
+          this.presentToast("BET SUCCESS");
+        } else {
+          this.presentToast(result['message']);
+        }
+      }, (err) => {
+        try {
+          console.log(err['error']['error']);
+          if( err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired" ) {
+            this.presentToast("Token Expired");
+            localStorage.clear();
+            this.app.getRootNav().pop();
+            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+          }
+        } catch {
+          this.presentToast("Post Error");
+        }      
+      });
+      this.rebet();
+      this.loading.dismiss();
+    }
   }
   
   back() {
     this.app.getRootNav().pop();
+  }
+
+  showLoader(){
+    this.loading = this.loadingCtrl.create({
+        content: 'Loading...'
+    });
+
+    this.loading.present();
+  }
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bottom',
+      dismissOnPageChange: true
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
   }
 
 }
