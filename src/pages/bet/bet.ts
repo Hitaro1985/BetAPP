@@ -127,7 +127,6 @@ export class BetPage {
           } else {
             betstate = betstate + "%" + this.corners[k] + "&" + this.betlist[k] * this.amount;
           }
-          this.total = this.total + this.betlist[k] * this.amount;
         }
       }
       this.rest.confirmBet({"betstate":betstate, "totalbet":this.total}).then((result) => {
