@@ -91,4 +91,30 @@ page-bet {
     .height93 {
         height: 93%;
     }
+    .betweenright {
+        position: absolute;
+        display: inline-block;
+        width: 40%;
+        left: 80%;
+        z-index: 999;
+        top: 0px;
+        height: calc(100%);
+    }
+    .betweenbottom {
+        position: absolute;
+        display: inline-block;
+        top: 70%;
+        height: 60%;
+        z-index: 999;
+        width: calc(100%);
+        left: 0%;
+    }
+    .corner {
+        position: absolute;
+        z-index: 1000;
+        top: 70%;
+        left: 80%;
+        width: 40%;
+        height: 60%;
+    }
 }
