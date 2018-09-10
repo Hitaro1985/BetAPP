@@ -21,6 +21,8 @@ import { BetPage } from '../pages/bet/bet';
 import { Printer } from '@ionic-native/printer';
 import { ReportPage } from '../pages/report/report';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { PrinterProvider } from '../providers/printer/printer';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     RestProvider,
     DatePipe,
     Printer,
-    SocialSharing
+    SocialSharing,
+    PrinterProvider,
+    BluetoothSerial
   ]
 })
 export class AppModule {}

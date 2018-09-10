@@ -12,7 +12,6 @@ import { Printer, PrintOptions } from '@ionic-native/printer';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-report',
   templateUrl: 'report.html',
@@ -50,17 +49,20 @@ export class ReportPage {
 
   getInfo() {
     this.rest.getReportInfo().then((result) => {
+      console.log(result);
       if (result['response_code'] == 1) {
         this.datas = result['data'];
         for (let data of this.datas) {
           var date3 = new Date(data['created_at']);
           var ionicDate3 = new Date(Date.UTC(date3.getFullYear(), date3.getMonth(), date3.getDate(), date3.getHours(), date3.getMinutes(), date3.getSeconds(), date3.getMilliseconds()));
           data['created_at'] = this.datepipe.transform(ionicDate3, 'yyyy-MM-dd : HH:mm:ss');
+          console.log(this.datas);
         }
       } else {
         this.presentToast(result['message']);
       }
     }, (err) => {
+      console.log(err);
       try {
         console.log(err['error']['error']);
         if (err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired") {

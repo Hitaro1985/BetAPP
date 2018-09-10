@@ -59,8 +59,24 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.getInfo(this.rest);
+    Observable.interval(1000).subscribe( x=> {
+      this.getUserData();
+    });
     this.observableVar = Observable.interval(1000).subscribe( x => {
       this.getInfo(this.rest);
+    });
+  }
+
+  getUserData() {
+    this.rest.getUserData().then((result) => {
+      if ( this.user['amount'] != result['data']['amount'] ) {
+        localStorage.setItem('user', JSON.stringify(result['data']));
+        //this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        this.user = JSON.parse(localStorage.getItem('user'));
+      } else {
+      }
+    }, (err) => {
+      console.log(err);
     });
   }
 

@@ -20,6 +20,7 @@
     "@angular/http": "5.2.11",
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
+    "@ionic-native/bluetooth-serial": "^4.12.2",
     "@ionic-native/core": "4.12.0",
     "@ionic-native/printer": "^4.12.2",
     "@ionic-native/social-sharing": "^4.12.2",
@@ -29,6 +30,7 @@
     "@ionic/storage": "2.1.3",
     "BluetoothPrinter": "git+https://github.com/anterodev/Cordova-Plugin-Bluetooth-Printer.git",
     "cordova-android": "~7.0.0",
+    "cordova-plugin-bluetooth-serial": "^0.4.7",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.1.2",
     "cordova-plugin-ionic-webview": "^2.1.0",
@@ -58,7 +60,8 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-printer": {},
-      "cordova-plugin-x-socialsharing": {}
+      "cordova-plugin-x-socialsharing": {},
+      "cordova-plugin-bluetooth-serial": {}
     },
     "platforms": [
       "android"

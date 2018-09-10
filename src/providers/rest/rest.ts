@@ -17,6 +17,22 @@ export class RestProvider {
     console.log('Hello RestProvider Provider');
   }
 
+  getUserData() {
+    var token = localStorage.getItem('token');
+    let headers = new HttpHeaders()
+          .set('Accept','application/json')
+          .set('content-type','application/json')
+          .set('Authorization', 'Bearer ' + token);
+    return new Promise((resolve, reject) => {
+      this.http.post(apiUrl+'getUserData', {}, {headers: headers})
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
   getHomeInfo() {
     return new Promise((resolve, reject) => {
       this.http.post(apiUrl+'round/getHomeInfo', {}, {})
