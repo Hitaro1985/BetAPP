@@ -76,7 +76,16 @@ export class HomePage {
       } else {
       }
     }, (err) => {
-      console.log(err);
+      try {
+        console.log(err['error']['error']);
+        if (err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired") {
+          this.presentToast("Token Expired");
+          localStorage.clear();
+          this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        }
+      } catch {
+        this.presentToast("Post Error");
+      }
     });
   }
 
@@ -119,6 +128,10 @@ export class HomePage {
         this.lastcloseddate = "" + ionicDate2.getFullYear() + "-" + ionicDate2.getMonth() + "-" + ionicDate2.getDay() + " " + ionicDate2.getHours() + ":" + ionicDate2.getMinutes() + ":" + ionicDate2.getSeconds();
 
         this.passedrounds = result['data']['passedround'];
+        var lastnumber = this.passedrounds[0]['rightNumber'];
+        //this.leftshowone = this.passedrounds[i]['rightNumber'];
+        this.leftshowone = String( Math.floor( lastnumber / 10 ));
+        this.leftshowtwo = String( lastnumber % 10 );
         var i = 0;
         for (let passedround of this.passedrounds) {
           var date3 = new Date(passedround['created_at']);

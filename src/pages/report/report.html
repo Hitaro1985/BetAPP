@@ -15,7 +15,7 @@
 
 <ion-content>
   <ion-grid *ngIf="this.datas">
-      <ion-row *ngFor=" let data of this.datas ">
+      <ion-row *ngFor=" let data of this.datas ; let i = index">
           <ion-col class="text-left">
               <p class="p-b-5">{{ data['name']}} # {{ data['round'] }}</p>
               <p class="p-b-5" *ngFor=" let betst of data['betstate'] "> {{ betst }} </p>
@@ -32,10 +32,10 @@
               </ng-template>    
               <ion-row>
                   <ion-col class="text-right p-r-5">
-                      <button ion-button item-end outline class="blue-button" (click)="print();">Print</button>
+                      <button ion-button item-end outline class="blue-button" (click)="print(i);">Print</button>
                   </ion-col>
                   <ion-col class="text-right p-r-5">
-                      <button ion-button item-end outline class="blue-button" (click)="share();">Share</button>
+                      <button ion-button item-end outline class="blue-button" (click)="share(i);">Share</button>
                   </ion-col>
               </ion-row>
           </ion-col>
