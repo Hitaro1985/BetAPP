@@ -5,6 +5,7 @@ import { RestProvider } from '../../providers/rest/rest';
 import { DatePipe } from '@angular/common'
 import { Printer, PrintOptions } from '@ionic-native/printer';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
   selector: 'page-mybet',
@@ -68,15 +69,38 @@ export class MyBetPage {
     });
   }
 
-  print() {
+  cancelbet(i) {
+    console.log(this.datas[i]);
+    this.rest.cancelBet({"id":this.datas[i]['id']}).then((result) => {
+      if( result['response_code']  == 1) {
+        this.presentToast("CANCEL BET SUCCESS");
+      } else {
+        this.presentToast(result['message']);
+      }
+    }, (err) => {
+      try {
+        console.log(err['error']['error']);
+        if( err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired" ) {
+          this.presentToast("Token Expired");
+          localStorage.clear();
+          this.app.getRootNav().pop();
+          this.app.getRootNav().setRoot(TabsPage);
+        }
+      } catch {
+        this.presentToast("Post Error");
+      }      
+    });
+  }
+
+  print(i) {
     this.printer.isAvailable().then((response) => {
-      this.successPrinterLoad();
+      this.successPrinterLoad(i);
     }, (err) => {
       this.presentToast("Error : printing is unavailable on your device ");
     });
   }
 
-  successPrinterLoad() {
+  successPrinterLoad(i) {
     let options: PrintOptions = {
       name: 'MyDocument',
       printerId: 'My Printer XYZ',
@@ -84,6 +108,16 @@ export class MyBetPage {
       landscape: true,
       grayscale: true
     };
+    var smess = this.datas[i]['name'] + this.datas[i]['round'] + "\n";
+    for( let betst of this.datas[i]['betstate']) {
+      smess = smess + betst + "\n";
+    }
+    smess = smess + "Total MYR" + this.datas[i]['total'] + "\n" + this.datas[i]['created_at'];
+    if( this.datas[i]['wls']) {
+      smess = smess + "\n" + this.datas[i]['wls'];
+    } else {
+      smess = smess + "\nRunning";
+    }
 
     this.printer.print("http://google.com", options).then((response) => {
       this.presentToast("printing done successfully !");
@@ -92,12 +126,23 @@ export class MyBetPage {
     });
   }
 
-  share() {
-    this.socialSharing.share("aaa", null, null, null)
+  share(i) {
+    var smess = this.datas[i]['name'] + this.datas[i]['round'] + "\n";
+    for( let betst of this.datas[i]['betstate']) {
+      smess = smess + betst + "\n";
+    }
+    smess = smess + "Total MYR" + this.datas[i]['total'] + "\n" + this.datas[i]['created_at'];
+    if( this.datas[i]['wls']) {
+      smess = smess + "\n" + this.datas[i]['wls'];
+    } else {
+      smess = smess + "\nRunning";
+    }
+    console.log(smess);
+    this.socialSharing.share(smess, null, null, null)
     .then(() => {
-
+      this.presentToast("Sharing done successfully!");
     }).catch(() => {
-
+      this.presentToast("Not completed sharing!");
     });
   }
 
