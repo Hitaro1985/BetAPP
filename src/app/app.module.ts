@@ -18,6 +18,9 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { RestProvider } from '../providers/rest/rest';
 import { DatePipe } from '@angular/common';
 import { BetPage } from '../pages/bet/bet';
+import { Printer } from '@ionic-native/printer';
+import { ReportPage } from '../pages/report/report';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { BetPage } from '../pages/bet/bet';
     HomePage,
     MyProfilePage,
     TabsPage,
-    BetPage
+    BetPage,
+    ReportPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,8 @@ import { BetPage } from '../pages/bet/bet';
     HomePage,
     MyProfilePage,
     TabsPage,
-    BetPage
+    BetPage,
+    ReportPage
   ],
   providers: [
     StatusBar,
@@ -54,7 +59,9 @@ import { BetPage } from '../pages/bet/bet';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
     RestProvider,
-    DatePipe
+    DatePipe,
+    Printer,
+    SocialSharing
   ]
 })
 export class AppModule {}

@@ -4,20 +4,26 @@ import { LoginPage } from '../login/login';
 import { RestProvider } from '../../providers/rest/rest';
 import { DatePipe } from '@angular/common'
 import { Printer, PrintOptions } from '@ionic-native/printer';
-import { SocialSharing } from '@ionic-native/social-sharing';
 
+/**
+ * Generated class for the ReportPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
 @Component({
-  selector: 'page-mybet',
-  templateUrl: 'mybet.html'
+  selector: 'page-report',
+  templateUrl: 'report.html',
 })
-export class MyBetPage {
-
+export class ReportPage {
   loading: any;
   user: any;
   isloggingin: boolean;
   datas: any;
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, private toastCtrl: ToastController, public app: App, public rest: RestProvider, public datepipe: DatePipe, public printer: Printer, public socialSharing: SocialSharing) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, private toastCtrl: ToastController, public app: App, public rest: RestProvider, public datepipe: DatePipe, public printer: Printer) {
     this.showLoader();
     if (localStorage.getItem('user') === null) {
       this.isloggingin = false;
@@ -43,7 +49,7 @@ export class MyBetPage {
   }
 
   getInfo() {
-    this.rest.getMyBetInfo().then((result) => {
+    this.rest.getReportInfo().then((result) => {
       if (result['response_code'] == 1) {
         this.datas = result['data'];
         for (let data of this.datas) {
@@ -93,12 +99,7 @@ export class MyBetPage {
   }
 
   share() {
-    this.socialSharing.share("aaa", null, null, null)
-    .then(() => {
-
-    }).catch(() => {
-
-    });
+    this.presentToast("click share");
   }
 
   signout() {

@@ -1,0 +1,117 @@
+page-report {
+    ion-col {
+        text-align: center;
+        padding-top: 5%;
+    }
+
+    p.header-text {
+        margin: 0;
+        font-size: 12px;
+    }
+
+    ion-row.headersplit {
+        max-height: 17px;
+    }
+
+    div.userinfo {
+        padding: 10px;
+        width: 100%;
+        height: 20%;
+    }
+
+    div.userinfo p {
+        color: #ffffff;
+        margin: 0px;
+        font-size: 18px;
+    }
+
+    div.userinfo div.userdetail {
+        float: left;
+        width: 80%;
+        height: 100%;
+        padding-left: 10px;
+    }
+
+    div.userinfo div.userimage {
+        float: left;
+        width: 20%;
+        height: 100%;
+    }
+
+    tr {
+        height: 30px;
+        background-color: #062238;
+    }
+
+    td, th {
+        color: #ffffff;
+        padding-left: 0px;
+        background-color: #062238;
+    }
+
+    div.item-inner {
+        padding-left: 20px;
+    }
+    
+    .text-left{
+        text-align: left !important;
+    }
+     .text-right{
+        text-align: right !important;
+    }
+    
+    .p-r-5{
+        padding-right: 1px !important;
+    }
+    
+    .p-b-5{
+        padding-bottom: 5px !important;
+    }
+    
+    ion-col p{
+        font-size: 10px !important; 
+        font-weight: 600;
+        color: white !important;
+    }
+    
+    p span{
+        color: #c01e2d !important;
+    }
+    
+    .button[icon-only] {
+        border-radius: 2px;
+        overflow: hidden;
+        height: 2rem;
+        width: 2rem;
+        font-size: 1rem;
+    }
+    
+    .m-top-4{
+        margin-top: -4px;
+    }
+    .m-top-12{
+        margin-top: -10px;
+    }
+    
+    .normal-button{
+        overflow: visible;
+        background: #60abd5;
+        color: white;
+    }
+    .blue-button{
+        overflow: visible;
+        background: #0e3868;
+        color: white;
+    }
+    
+    .button-md {
+        border-radius: 2px;
+        overflow: hidden;
+        height: 2rem;
+        font-size: 1rem;   
+    }
+    
+    .header-back-bg{
+        background-image: url("../../assets/imgs/ui/split-bar.png");
+    }
+}

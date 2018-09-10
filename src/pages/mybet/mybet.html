@@ -34,9 +34,6 @@
                 <p>Total MYR <span>{{ data['total'] }}</span></p>
             </ion-col>
             <ion-col col-5 class="text-right">
-                <button ion-button color="light" clear icon-only class="m-top-12">
-                    <ion-icon name="ios-close-circle-outline"></ion-icon>
-                </button>
                 <p class="m-top-4">{{ data['created_at'] }}</p>
                 <div *ngIf="data['wls']; then resultex else resultnon"></div>
                 <ng-template #resultex>
@@ -47,10 +44,10 @@
                 </ng-template>    
                 <ion-row>
                     <ion-col class="text-right p-r-5">
-                        <button ion-button item-end outline class="blue-button">Print</button>
+                        <button ion-button item-end outline class="blue-button" (click)="print();">Print</button>
                     </ion-col>
                     <ion-col class="text-right p-r-5">
-                        <button ion-button item-end outline class="blue-button">Share</button>
+                        <button ion-button item-end outline class="blue-button" (click)="share();">Share</button>
                     </ion-col>
                 </ion-row>
             </ion-col>

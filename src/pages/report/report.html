@@ -1,0 +1,48 @@
+<!--
+  Generated template for the ReportPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>report</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-grid *ngIf="this.datas">
+      <ion-row *ngFor=" let data of this.datas ">
+          <ion-col class="text-left">
+              <p class="p-b-5">{{ data['name']}} # {{ data['round'] }}</p>
+              <p class="p-b-5" *ngFor=" let betst of data['betstate'] "> {{ betst }} </p>
+              <p>Total MYR <span>{{ data['total'] }}</span></p>
+          </ion-col>
+          <ion-col col-5 class="text-right">
+              <p class="m-top-4">{{ data['created_at'] }}</p>
+              <div *ngIf="data['wls']; then resultex else resultnon"></div>
+              <ng-template #resultex>
+                  <button ion-button item-end outline class="normal-button">{{ data['wls'] }}</button>
+              </ng-template>
+              <ng-template #resultnon>
+                  <button ion-button item-end outline class="normal-button">Running</button>
+              </ng-template>    
+              <ion-row>
+                  <ion-col class="text-right p-r-5">
+                      <button ion-button item-end outline class="blue-button" (click)="print();">Print</button>
+                  </ion-col>
+                  <ion-col class="text-right p-r-5">
+                      <button ion-button item-end outline class="blue-button" (click)="share();">Share</button>
+                  </ion-col>
+              </ion-row>
+          </ion-col>
+          <ion-row class="headersplit">
+              <img src="../../assets/imgs/ui/split-bar.png" />
+          </ion-row>
+      </ion-row>
+  </ion-grid>
+
+</ion-content>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { BetPage } from '../bet/bet';
+import { ReportPage } from '../report/report';
 
 /**
  * Generated class for the MyprofilePage page.
@@ -43,6 +44,7 @@ export class MyProfilePage {
   }
 
   clickReport() {
+    this.app.getRootNav().push(ReportPage);
     console.log("clickReport Clicked");
   }
 
