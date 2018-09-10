@@ -3,6 +3,7 @@ import { NavController, App, LoadingController, ToastController } from 'ionic-an
 import { LoginPage } from '../login/login';
 import { RestProvider } from '../../providers/rest/rest';
 import { DatePipe } from '@angular/common'
+import { Printer, PrintOptions } from '@ionic-native/printer';
 
 @Component({
   selector: 'page-mybet',
