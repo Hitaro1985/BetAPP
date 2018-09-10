@@ -18,7 +18,8 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { RestProvider } from '../providers/rest/rest';
 import { DatePipe } from '@angular/common';
 import { BetPage } from '../pages/bet/bet';
-
+import { Printer } from '@ionic-native/printer';
+import { SocialSharing } from '@ionic-native/social-sharing';
 @NgModule({
   declarations: [
     MyApp,
@@ -51,10 +52,12 @@ import { BetPage } from '../pages/bet/bet';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthServiceProvider,
     RestProvider,
-    DatePipe
+    DatePipe,
+    Printer,
+    SocialSharing
   ]
 })
-export class AppModule {}
+export class AppModule { }

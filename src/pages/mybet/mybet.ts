@@ -4,7 +4,7 @@ import { LoginPage } from '../login/login';
 import { RestProvider } from '../../providers/rest/rest';
 import { DatePipe } from '@angular/common'
 import { Printer, PrintOptions } from '@ionic-native/printer';
-
+import { SocialSharing } from '@ionic-native/social-sharing';
 @Component({
   selector: 'page-mybet',
   templateUrl: 'mybet.html'
@@ -16,21 +16,24 @@ export class MyBetPage {
   isloggingin: boolean;
   datas: any;
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, private toastCtrl: ToastController, public app: App, public rest: RestProvider, public datepipe: DatePipe) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, private toastCtrl: ToastController, public app: App, public rest: RestProvider, public datepipe: DatePipe, public printer: Printer
+    , public share: SocialSharing) {
     this.showLoader();
-    if( localStorage.getItem('user') === null) {
+    if (localStorage.getItem('user') === null) {
       this.isloggingin = false;
     } else {
       this.user = JSON.parse(localStorage.getItem('user'));
       this.isloggingin = true;
     }
     this.loading.dismiss();
+
+
   }
 
   ionViewWillEnter() {
-    if( localStorage.getItem('user') == null ) {
+    if (localStorage.getItem('user') == null) {
       this.app.getRootNav().setRoot(LoginPage);
-    } else if ( localStorage.getItem('token') == null ) {
+    } else if (localStorage.getItem('token') == null) {
       localStorage.clear();
       this.navCtrl.setRoot(this.navCtrl.getActive().component);
     } else {
@@ -43,7 +46,7 @@ export class MyBetPage {
 
   getInfo() {
     this.rest.getMyBetInfo().then((result) => {
-      if( result['response_code'] == 1 ) {
+      if (result['response_code'] == 1) {
         this.datas = result['data'];
         for (let data of this.datas) {
           var date3 = new Date(data['created_at']);
@@ -56,14 +59,14 @@ export class MyBetPage {
     }, (err) => {
       try {
         console.log(err['error']['error']);
-        if( err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired" ) {
+        if (err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired") {
           this.presentToast("Token Expired");
           localStorage.clear();
           this.navCtrl.setRoot(this.navCtrl.getActive().component);
         }
       } catch {
         this.presentToast("Post Error");
-      }      
+      }
     });
   }
 
@@ -72,13 +75,13 @@ export class MyBetPage {
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 
-  signin(){
+  signin() {
     this.app.getRootNav().setRoot(LoginPage);
   }
 
-  showLoader(){
+  showLoader() {
     this.loading = this.loadingCtrl.create({
-        content: 'Loading...'
+      content: 'Loading...'
     });
 
     this.loading.present();
@@ -97,6 +100,16 @@ export class MyBetPage {
     });
 
     toast.present();
+  }
+  printButton() {
+    this.printer.isAvailable().then((x) => {
+      alert(1);
+    }, (x) => {
+      alert(x);
+    });
+  }
+  sharing(message) {
+    this.share.share(message);
   }
 
 }
