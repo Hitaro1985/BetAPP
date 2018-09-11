@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-  let apiUrl = 'http://lotbackendapps.skydeveloperonline.com/public/api/'
-  //let apiUrl = 'http://localhost:8000/api/'
+  //let apiUrl = 'http://lotbackendapps.skydeveloperonline.com/public/api/'
+  let apiUrl = 'http://localhost:8000/api/'
 
 /*
   Generated class for the RestProvider provider.
@@ -76,12 +76,14 @@ export class RestProvider {
     });
   }
 
-  getReportInfo() {
+  getReportInfo(content) {
     var token = localStorage.getItem('token');
     let headers = new HttpHeaders()
+          .set('Accept','application/json')
+          .set('content-type','application/json')
           .set('Authorization', 'Bearer ' + token);
     return new Promise((resolve, reject) => {
-      this.http.post(apiUrl+'round/getReportInfo', {}, {headers: headers})
+      this.http.post(apiUrl+'round/getReportInfo', JSON.stringify(content), {headers: headers})
         .subscribe(res => {
           resolve(res);
         }, (err) => {

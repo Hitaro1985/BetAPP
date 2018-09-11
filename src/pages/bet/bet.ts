@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App, LoadingController, ToastController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { TabsPage } from '../tabs/tabs';
+import { LoginPage } from '../login/login';
+import { BetsuccessPage } from '../betsuccess/betsuccess';
 
 /**
  * Generated class for the BetPage page.
@@ -47,7 +49,6 @@ export class BetPage {
   }
 
   bet(amount) {
-    console.log(amount);
     if( this.betlist == null ) {
       this.betlist = {}
     }
@@ -69,7 +70,6 @@ export class BetPage {
     } else {
       this.betlist[String(amount)] = 1;
     }
-    console.log(this.betlist);
     this.onChangeAmount();
   }
 
@@ -132,12 +132,21 @@ export class BetPage {
       this.rest.confirmBet({"betstate":betstate, "totalbet":this.total}).then((result) => {
         if( result['response_code']  == 1) {
           this.presentToast("BET SUCCESS");
+          console.log(result['data']);
+          console.log(this.betlist);
+          this.rebet();
+          this.app.getRootNav().push(BetsuccessPage, {
+            round: result['data']['round'],
+            receipt: result['data']['receiptNumber'],
+            agentName: result['data']['name'],
+            betNumbers: result['data']['betNumbers'],
+            total: result['data']['total']
+          });
         } else {
           this.presentToast(result['message']);
         }
       }, (err) => {
         try {
-          console.log(err['error']['error']);
           if( err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired" ) {
             this.presentToast("Token Expired");
             localStorage.clear();
@@ -148,7 +157,6 @@ export class BetPage {
           this.presentToast("Post Error");
         }      
       });
-      this.rebet();
       this.loading.dismiss();
     }
   }
@@ -178,6 +186,28 @@ export class BetPage {
     });
 
     toast.present();
+  }
+
+  ionViewWillLeave() {
+    if( localStorage.getItem('user') == null ){
+      this.app.getRootNav().setRoot(LoginPage);
+    } else {
+      var user = JSON.parse(localStorage.getItem('user'));
+      this.rest.getUserData().then((result) => {
+        if ( user['amount'] != result['data']['amount'] ) {
+          localStorage.setItem('user', JSON.stringify(result['data']));
+        } else {
+        }
+      }, (err) => {
+        try {
+          if (err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired") {
+            localStorage.clear();
+            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+          }
+        } catch {
+        }
+      });
+    }
   }
 
 }

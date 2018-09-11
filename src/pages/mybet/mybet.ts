@@ -111,7 +111,29 @@ export class MyBetPage {
       this.navCtrl.setRoot(this.navCtrl.getActive().component);
     } else {
       this.getInfo();
+      this.getUserData();
     }
+  }
+
+  getUserData() {
+    this.rest.getUserData().then((result) => {
+      if ( this.user['amount'] != result['data']['amount'] ) {
+        localStorage.setItem('user', JSON.stringify(result['data']));
+        //this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        this.user = JSON.parse(localStorage.getItem('user'));
+      } else {
+      }
+    }, (err) => {
+      try {
+        if (err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired") {
+          this.presentToast("Token Expired");
+          localStorage.clear();
+          this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        }
+      } catch {
+        this.presentToast("Post Error");
+      }
+    });
   }
 
   ionViewWillLeave() {
@@ -121,6 +143,7 @@ export class MyBetPage {
     this.rest.getMyBetInfo().then((result) => {
       if (result['response_code'] == 1) {
         this.datas = result['data'];
+        console.log(result['data']);
         for (let data of this.datas) {
           var date3 = new Date(data['created_at']);
           var ionicDate3 = new Date(Date.UTC(date3.getFullYear(), date3.getMonth(), date3.getDate(), date3.getHours(), date3.getMinutes(), date3.getSeconds(), date3.getMilliseconds()));
@@ -131,7 +154,6 @@ export class MyBetPage {
       }
     }, (err) => {
       try {
-        console.log(err['error']['error']);
         if (err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired") {
           this.presentToast("Token Expired");
           localStorage.clear();
@@ -144,7 +166,6 @@ export class MyBetPage {
   }
 
   cancelbet(i) {
-    console.log(this.datas[i]);
     this.rest.cancelBet({"id":this.datas[i]['id']}).then((result) => {
       if( result['response_code']  == 1) {
         this.presentToast("CANCEL BET SUCCESS");
@@ -153,7 +174,6 @@ export class MyBetPage {
       }
     }, (err) => {
       try {
-        console.log(err['error']['error']);
         if( err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired" ) {
           this.presentToast("Token Expired");
           localStorage.clear();
@@ -209,18 +229,20 @@ export class MyBetPage {
   }
 
   print(i) {
-    var smess = this.datas[i]['name'] + this.datas[i]['round'] + "\n";
+    var smess = this.datas[i]['created_at'] + " #" + this.datas[i]['roundinfo'] + "\n";
+    smess = smess + this.datas[i]['name'] + "\n";
+    //smess = this.datas[i]['name'] + this.datas[i]['round'] + "\n";
     for( let betst of this.datas[i]['betstate']) {
       smess = smess + betst + "\n";
     }
-    smess = smess + "Total MYR" + this.datas[i]['total'] + "\n" + this.datas[i]['created_at'];
+    smess = smess + "Total : MYR" + String(this.datas[i]['total']) + "\n";
     if( this.datas[i]['wls']) {
-      smess = smess + "\n" + this.datas[i]['wls'];
+      smess = smess + this.datas[i]['wls'];
     } else {
-      smess = smess + "\nRunning";
+      smess = smess + "Running";
     }
+    smess = smess + "\ngood luck to all boss";
     var title = "recipt";
-    var text = smess;
     let receipt = '';
     receipt += commands.HARDWARE.HW_INIT;
     receipt += commands.TEXT_FORMAT.TXT_4SQUARE;
@@ -278,51 +300,22 @@ export class MyBetPage {
       console.log(error);
       this.presentToast('Error activating bluetooth, please try again!');
     });
-    // this.printer.isAvailable().then((response) => {
-    //   this.successPrinterLoad(i);
-    // }, (err) => {
-    //   this.presentToast("Error : printing is unavailable on your device ");
-    // });
   }
 
-  // successPrinterLoad(i) {
-  //   let options: PrintOptions = {
-  //     name: 'MyDocument',
-  //     printerId: 'My Printer XYZ',
-  //     duplex: true,
-  //     landscape: true,
-  //     grayscale: true
-  //   };
-  //   var smess = this.datas[i]['name'] + this.datas[i]['round'] + "\n";
-  //   for( let betst of this.datas[i]['betstate']) {
-  //     smess = smess + betst + "\n";
-  //   }
-  //   smess = smess + "Total MYR" + this.datas[i]['total'] + "\n" + this.datas[i]['created_at'];
-  //   if( this.datas[i]['wls']) {
-  //     smess = smess + "\n" + this.datas[i]['wls'];
-  //   } else {
-  //     smess = smess + "\nRunning";
-  //   }
-
-  //   this.printer.print(smess, options).then((response) => {
-  //     this.presentToast("printing done successfully !");
-  //   }, (err) => {
-  //     this.presentToast("Error while printing !");
-  //   });
-  // }
-
   share(i) {
-    var smess = this.datas[i]['name'] + this.datas[i]['round'] + "\n";
+    var smess = this.datas[i]['created_at'] + " #" + this.datas[i]['roundinfo'] + "\n";
+    smess = smess + this.datas[i]['name'] + "\n";
+    //smess = this.datas[i]['name'] + this.datas[i]['round'] + "\n";
     for( let betst of this.datas[i]['betstate']) {
       smess = smess + betst + "\n";
     }
-    smess = smess + "Total MYR" + this.datas[i]['total'] + "\n" + this.datas[i]['created_at'];
+    smess = smess + "Total : MYR" + String(this.datas[i]['total']) + "\n";
     if( this.datas[i]['wls']) {
-      smess = smess + "\n" + this.datas[i]['wls'];
+      smess = smess + this.datas[i]['wls'];
     } else {
-      smess = smess + "\nRunning";
+      smess = smess + "Running";
     }
-    console.log(smess);
+    smess = smess + "\ngood luck to all boss";
     this.socialSharing.share(smess, null, null, null)
     .then(() => {
       this.presentToast("Sharing done successfully!");

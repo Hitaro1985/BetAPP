@@ -6,6 +6,8 @@ import { DatePipe } from '@angular/common'
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { PrinterProvider } from './../../providers/printer/printer';
 import { commands } from './../../providers/printer/printer-commands';
+import { ModalController } from 'ionic-angular';
+import { CalendarModal, CalendarModalOptions, CalendarResult } from "ion2-calendar";
 
 /**
  * Generated class for the ReportPage page.
@@ -23,8 +25,11 @@ export class ReportPage {
   user: any;
   isloggingin: boolean;
   datas: any;
+  roundName: any;
+  dateRange: any;
+  public toggled: boolean = false;
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private printer: PrinterProvider, public loadingCtrl: LoadingController
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, private alertCtrl: AlertController, private printer: PrinterProvider, public loadingCtrl: LoadingController
     , private toastCtrl: ToastController, public app: App, public rest: RestProvider, public datepipe: DatePipe, public socialSharing: SocialSharing) {
     this.showLoader();
     if (localStorage.getItem('user') === null) {
@@ -34,6 +39,96 @@ export class ReportPage {
       this.isloggingin = true;
     }
     this.loading.dismiss();
+    this.toggled = false;
+  }
+
+  openCalendar() {
+    const options: CalendarModalOptions = {
+      canBackwardsSelected: true,
+      pickMode: 'range',
+      title: 'DATE RANGE'
+    };
+
+    let myCalendar = this.modalCtrl.create(CalendarModal, {
+      options: options
+    });
+
+    myCalendar.present();
+
+    myCalendar.onDidDismiss((date: { from: CalendarResult; to: CalendarResult }, type: string) => {
+      if(date) {
+        this.dateRange = date.from['string'] + " - " + date.to['string'];
+      }
+      this.getRoundFilter();
+      console.log(date);
+    });
+  }
+
+  clearFilter() {
+    this.dateRange = "";
+    this.roundName = "";
+    this.getRoundFilter();
+  }
+
+  getRoundFilter() {
+    this.rest.getReportInfo({"datefilter":this.dateRange, "roundname":this.roundName}).then((result) => {
+      if (result['response_code'] == 1) {
+        this.datas = result['data'];
+        for (let data of this.datas) {
+          var date3 = new Date(data['created_at']);
+          var ionicDate3 = new Date(Date.UTC(date3.getFullYear(), date3.getMonth(), date3.getDate(), date3.getHours(), date3.getMinutes(), date3.getSeconds(), date3.getMilliseconds()));
+          data['created_at'] = this.datepipe.transform(ionicDate3, 'yyyy-MM-dd : HH:mm:ss');
+        }
+      } else {
+        this.presentToast(result['message']);
+      }
+    }, (err) => {
+      try {
+        console.log(err['error']['error']);
+        if (err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired") {
+          this.presentToast("Token Expired");
+          localStorage.clear();
+          this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        }
+      } catch {
+        this.presentToast("Post Error");
+      }
+    });
+  }
+
+  public searchRound(evt : any) {
+    this.getRoundFilter();
+    // this.rest.getReportInfo({"roundname":evt.target.value}).then((result) => {
+    //   if (result['response_code'] == 1) {
+    //     this.datas = result['data'];
+    //     for (let data of this.datas) {
+    //       var date3 = new Date(data['created_at']);
+    //       var ionicDate3 = new Date(Date.UTC(date3.getFullYear(), date3.getMonth(), date3.getDate(), date3.getHours(), date3.getMinutes(), date3.getSeconds(), date3.getMilliseconds()));
+    //       data['created_at'] = this.datepipe.transform(ionicDate3, 'yyyy-MM-dd : HH:mm:ss');
+    //     }
+    //   } else {
+    //     this.presentToast(result['message']);
+    //   }
+    // }, (err) => {
+    //   try {
+    //     console.log(err['error']['error']);
+    //     if (err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired") {
+    //       this.presentToast("Token Expired");
+    //       localStorage.clear();
+    //       this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    //     }
+    //   } catch {
+    //     this.presentToast("Post Error");
+    //   }
+    // });
+  }
+
+  public cancelSearchRound(evt : any) {
+    console.log(evt.target.value);
+  }
+
+  public toggle(): void {
+    this.toggled = !this.toggled;
   }
 
   noSpecialChars(string) {
@@ -124,21 +219,18 @@ export class ReportPage {
   }
 
   getInfo() {
-    this.rest.getReportInfo().then((result) => {
-      console.log(result);
+    this.rest.getReportInfo({}).then((result) => {
       if (result['response_code'] == 1) {
         this.datas = result['data'];
         for (let data of this.datas) {
           var date3 = new Date(data['created_at']);
           var ionicDate3 = new Date(Date.UTC(date3.getFullYear(), date3.getMonth(), date3.getDate(), date3.getHours(), date3.getMinutes(), date3.getSeconds(), date3.getMilliseconds()));
           data['created_at'] = this.datepipe.transform(ionicDate3, 'yyyy-MM-dd : HH:mm:ss');
-          console.log(this.datas);
         }
       } else {
         this.presentToast(result['message']);
       }
     }, (err) => {
-      console.log(err);
       try {
         console.log(err['error']['error']);
         if (err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired") {
@@ -206,7 +298,6 @@ export class ReportPage {
       smess = smess + "\nRunning";
     }
     var title = "recipt";
-    var text = smess;
     let receipt = '';
     receipt += commands.HARDWARE.HW_INIT;
     receipt += commands.TEXT_FORMAT.TXT_4SQUARE;

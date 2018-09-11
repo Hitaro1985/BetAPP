@@ -36,9 +36,31 @@ export class ResultPage {
 
   ionViewWillEnter() {
     this.getInfo();
+    this.getUserData();
   }
 
   ionViewWillLeave() {
+  }
+
+  getUserData() {
+    this.rest.getUserData().then((result) => {
+      if ( this.user['amount'] != result['data']['amount'] ) {
+        localStorage.setItem('user', JSON.stringify(result['data']));
+        //this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        this.user = JSON.parse(localStorage.getItem('user'));
+      } else {
+      }
+    }, (err) => {
+      try {
+        if (err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired") {
+          this.presentToast("Token Expired");
+          localStorage.clear();
+          this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        }
+      } catch {
+        this.presentToast("Post Error");
+      }
+    });
   }
 
   getInfo() {
@@ -59,7 +81,6 @@ export class ResultPage {
           data['first'] = String( Math.floor( data['rightNumber'] / 10 ) );
           data['second'] = String( data['rightNumber'] % 10 );
         }
-        console.log(this.datas);
       } else {
         this.presentToast(result['message']);
       }

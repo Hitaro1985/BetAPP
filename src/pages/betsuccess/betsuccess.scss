@@ -1,0 +1,54 @@
+page-betsuccess {
+
+    ion-content div.scroll-content {
+        margin-top: 0px !important;
+    }
+
+    ion-row {
+        width: 100%;
+    }
+
+    .bet-grid {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .betrow {
+        background-color: white;
+        color: black;
+    }
+
+    .bet-head {
+        background-color: black;
+        color: white;
+    }
+
+    .m-top-12 {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 15px;
+        padding: 0;
+        margin: 0px;
+        width: 15px;
+    }
+
+    .close-button {
+        font-size: 15px;
+    }
+
+    .buttons {
+        background-color: white;
+    }
+
+    .btn-print,
+    .btn-share {
+        height: 20px;
+        background-color: black;
+        color: white;
+    }
+
+    .lotto-logo {
+        background-color: rgb(218, 211, 211);
+    }
+}

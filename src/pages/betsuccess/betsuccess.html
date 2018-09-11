@@ -1,0 +1,49 @@
+<!--
+  Generated template for the BetsuccessPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>betsuccess</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+
+<ion-content padding>
+
+  <ion-grid padding class="bet-grid">
+    <ion-row class="bet-head">
+      <ion-col>
+        Bet Successful
+        <button ion-button color="light" clear icon-only class="m-top-12" (click)="close();">
+        <ion-icon name="ios-close-circle-outline" class="close-button"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="lotto-logo"><ion-col>
+      <img width="150" src="../../assets/imgs/ui/lotto-logo.png">
+    </ion-col></ion-row>
+
+    <ion-row class="betrow"><ion-col>{{ this.nowdate }} {{ this.roundinfo }}</ion-col></ion-row>
+
+    <ion-row class="betrow"><ion-col>{{ this.agentName }}</ion-col></ion-row>
+
+    <ion-row class="betrow" *ngFor="let betnumber of this.betNumbers"><ion-col>
+      Number #{{ betnumber[0] }} = MYR {{ betnumber[1] }}
+    </ion-col></ion-row>
+
+    <ion-row class="betrow"><ion-col>Total : MYR {{ this.total }}</ion-col></ion-row>
+
+    <ion-row class="betrow"><ion-col>good luck to all boss</ion-col></ion-row>
+
+    <ion-row class="buttons"><ion-col>
+      <button ion-button class="btn-print" (click)="print();">Print</button>
+      <button ion-button class="btn-share" (click)="share();">Share</button>
+    </ion-col></ion-row>
+  </ion-grid>
+</ion-content>

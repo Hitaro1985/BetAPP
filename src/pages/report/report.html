@@ -8,12 +8,32 @@
 
   <ion-navbar>
     <ion-title>report</ion-title>
+    <button ion-button (click)="clearFilter()" style="position: absolute;right: 17px;top: 8px;height: 35px;">Clear Filter</button>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
+    <div style="background-color:red;">
+        <ion-searchbar
+        placeholder="Round Name Search"
+        [(ngModel)]="roundName"
+        (ionInput)="searchRound($event)"
+        (ionCancel)="cancelSearchRound($event)"
+        (ionClear) = "cancelSearchRound($event)"
+        [showCancelButton]="true">
+        </ion-searchbar>
+        <ion-searchbar
+        placeholder="Date Range Search"
+        [(ngModel)]="dateRange"
+        (click)="openCalendar()"
+        (ionInput)="searchRound($event)"
+        (ionCancel)="cancelSearchRound($event)"
+        (ionClear) = "cancelSearchRound($event)"
+        [showCancelButton]="true">
+        </ion-searchbar>
+    </div>
   <ion-grid *ngIf="this.datas">
       <ion-row *ngFor=" let data of this.datas ; let i = index">
           <ion-col class="text-left">
@@ -44,5 +64,4 @@
           </ion-row>
       </ion-row>
   </ion-grid>
-
 </ion-content>

@@ -59,9 +59,9 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.getInfo(this.rest);
-    Observable.interval(1000).subscribe( x=> {
-      this.getUserData();
-    });
+    //Observable.interval(1000).subscribe( x=> {
+    this.getUserData();
+    //});
     this.observableVar = Observable.interval(1000).subscribe( x => {
       this.getInfo(this.rest);
     });
@@ -77,7 +77,6 @@ export class HomePage {
       }
     }, (err) => {
       try {
-        console.log(err['error']['error']);
         if (err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired") {
           this.presentToast("Token Expired");
           localStorage.clear();

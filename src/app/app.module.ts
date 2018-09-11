@@ -23,6 +23,8 @@ import { ReportPage } from '../pages/report/report';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { PrinterProvider } from '../providers/printer/printer';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { CalendarModule } from 'ion2-calendar';
+import { BetsuccessPage } from '../pages/betsuccess/betsuccess';
 
 @NgModule({
   declarations: [
@@ -35,12 +37,14 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
     MyProfilePage,
     TabsPage,
     BetPage,
-    ReportPage
+    ReportPage,
+    BetsuccessPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    CalendarModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -53,7 +57,8 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
     MyProfilePage,
     TabsPage,
     BetPage,
-    ReportPage
+    ReportPage,
+    BetsuccessPage
   ],
   providers: [
     StatusBar,
