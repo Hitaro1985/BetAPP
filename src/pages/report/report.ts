@@ -297,11 +297,12 @@ export class ReportPage {
     } else {
       smess = smess + "\nRunning";
     }
-    var title = "recipt";
+    var title = "LL";
     let receipt = '';
     receipt += commands.HARDWARE.HW_INIT;
     receipt += commands.TEXT_FORMAT.TXT_4SQUARE;
     receipt += commands.TEXT_FORMAT.TXT_ALIGN_CT;
+    receipt += commands.TEXT_FORMAT.TXT_FONT_A;
     receipt += title.toUpperCase();
     receipt += commands.EOL;
     receipt += commands.TEXT_FORMAT.TXT_NORMAL;

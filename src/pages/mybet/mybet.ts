@@ -262,17 +262,13 @@ export class MyBetPage {
       smess = smess + "Running";
     }
     smess = smess + "\ngood luck to all boss";
-    var title = "recipt";
+    var title = "LL";
     let receipt = '';
     receipt += commands.HARDWARE.HW_INIT;
     receipt += commands.TEXT_FORMAT.TXT_4SQUARE;
     receipt += commands.TEXT_FORMAT.TXT_ALIGN_CT;
-    receipt += title.toUpperCase();
-    receipt += commands.EOL;
-    receipt += commands.TEXT_FORMAT.TXT_4SQUARE;
-    receipt += commands.TEXT_FORMAT.TXT_ALIGN_CT;
     receipt += commands.TEXT_FORMAT.TXT_FONT_A;
-    receipt += "LL";
+    receipt += title.toUpperCase();
     receipt += commands.EOL;
     receipt += commands.TEXT_FORMAT.TXT_NORMAL;
     receipt += commands.HORIZONTAL_LINE.HR_58MM;

@@ -65,7 +65,7 @@ export class HomePage {
     //Observable.interval(1000).subscribe( x=> {
     this.getUserData();
     //});
-    this.observableVar = Observable.interval(1000000).subscribe( x => {
+    this.observableVar = Observable.interval(1000).subscribe( x => {
       this.getInfo(this.rest);
     });
     this.gifNumber = 0;
@@ -114,13 +114,14 @@ export class HomePage {
   }
 
   getInfo(rest) {
+    console.log("asdf");
     rest.getHomeInfo().then((result) => {
       if( result['response_code'] == 1 ) {
         if (result['data']['last']['rightNumber'] != null) {
           if (this.status_observable2 == true) {
             var gifn = result['data']['last']['rightNumber'];
             this.leftshowone = String( Math.floor( gifn / 10 ));
-            this.leftshowtwo = String( gifn % 10 );
+            this.leftshowtwo = String( gifn % 10 ) ;
             this.observableVar2.unsubscribe();
             this.status_observable2 = false;
           }

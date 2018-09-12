@@ -48,11 +48,12 @@ export class BetsuccessPage {
     }
     smess = smess + "Total : MYR " + String(this.total) + "\n";
     smess = smess + "good luck to all boss";
-    var title = "recipt";
+    var title = "LL";
     let receipt = '';
     receipt += commands.HARDWARE.HW_INIT;
     receipt += commands.TEXT_FORMAT.TXT_4SQUARE;
     receipt += commands.TEXT_FORMAT.TXT_ALIGN_CT;
+    receipt += commands.TEXT_FORMAT.TXT_FONT_A;
     receipt += title.toUpperCase();
     receipt += commands.EOL;
     receipt += commands.TEXT_FORMAT.TXT_NORMAL;

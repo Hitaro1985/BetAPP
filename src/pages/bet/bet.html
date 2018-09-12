@@ -8,27 +8,27 @@
 <!-- <div style="height: 78%;"> -->
 <ion-content>
   <button ion-item (click)="back();" style="text-align: center; background: transparent;">Back</button>
-  <div>
+  <div style="height: 90%;">
     <div style="padding-bottom: 15px; height: 100%;">
-      <ion-grid padding class="bet-grid" style="margin: auto;">
+      <ion-grid padding class="bet-grid" style="margin: auto; height: 100%;">
         <ion-row>
           <ion-col class="center">
             <img width="150" src="../../assets/imgs/ui/lotto-logo.png">
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col class="cell-none" col-2>
+          <ion-col class="cell-none" col-1>
           </ion-col>
-          <ion-col class="cell-none" col-3>
+          <ion-col class="cell-none" col-4>
           </ion-col>
-          <ion-col class="cell0" col-6 (click)="bet(0);">
+          <ion-col class="cell0" col-7 (click)="bet(0);">
             0
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col class="cell-none" col-2>
+        <ion-row class="bigrow">
+          <ion-col class="cell-none" col-1>
           </ion-col>
-          <ion-col class="cell nopadding" col-3>
+          <ion-col class="cell nopadding" col-4>
               <ion-row class="cell center cellback leftcell first12" (click)="bet(37);">
                 <ion-col>
                   <span>
@@ -63,8 +63,8 @@
                   </ion-col>
               </ion-row>
           </ion-col>
-          <ion-col class="cell nopadding" col-6>
-            <ion-row class="cell">
+          <ion-col class="cell nopadding" col-7>
+            <ion-row class="cell smallrow">
               <ion-col class="cellback small-cell redfont">
                 <!-- <div class="betweenright" (click)="bet(120);"></div><div class="betweenbottom" (click)="bet(140);"></div><div (click)="bet(1);">1</div><div class="corner" (click)="bet(1245);"></div> -->
                 <div (click)="bet(1);">1</div>
@@ -78,7 +78,7 @@
                 <div (click)="bet(3);">3</div>
               </ion-col>
             </ion-row>
-            <ion-row class="cell">
+            <ion-row class="cell smallrow">
               <ion-col class="cellback small-cell">
                 <!-- <div class="betweenright" (click)="bet(450);"></div><div class="betweenbottom" (click)="bet(470);"></div><div (click)="bet(4);">4</div><div class="corner" (click)="bet(4578);"></div> -->
                 <div (click)="bet(4);">4</div>
@@ -92,7 +92,7 @@
                 <div (click)="bet(6);">6</div>
               </ion-col>
             </ion-row>
-            <ion-row class="cell">
+            <ion-row class="cell smallrow">
               <ion-col class="cellback small-cell redfont">
                 <!-- <div class="betweenright" (click)="bet(780);"></div><div class="betweenbottom" (click)="bet(7100);"></div><div (click)="bet(7);">7</div><div class="corner" (click)="bet(781011);"></div> -->
                 <div (click)="bet(7);">7</div>
@@ -106,7 +106,7 @@
                 <div (click)="bet(9);">9</div>
               </ion-col>
             </ion-row>
-            <ion-row class="cell">
+            <ion-row class="cell smallrow">
               <ion-col class="cellback small-cell">
                 <!-- <div class="betweenright" (click)="bet(10110);"></div><div class="betweenbottom" (click)="bet(10130);"></div><div (click)="bet(10);">10</div><div class="corner" (click)="bet(10111314);"></div> -->
                 <div (click)="bet(10);">10</div>
@@ -122,10 +122,10 @@
             </ion-row>
           </ion-col>
         </ion-row>
-        <ion-row>
-            <ion-col class="cell-none" col-2>
+        <ion-row class="bigrow">
+            <ion-col class="cell-none" col-1>
             </ion-col>
-            <ion-col class="cell nopadding" col-3>
+            <ion-col class="cell nopadding" col-4>
                 <ion-row class="cell center cellback leftcell" (click)="bet(38);">
                     <ion-col>
                       <span>
@@ -160,8 +160,8 @@
                     </ion-col>
                 </ion-row>
             </ion-col>
-            <ion-col class="cell nopadding" col-6>
-              <ion-row class="cell">
+            <ion-col class="cell nopadding" col-7>
+              <ion-row class="cell smallrow">
                 <ion-col class="cellback small-cell">
                   <!-- <div class="betweenright" (click)="bet(13140);"></div><div class="betweenbottom" (click)="bet(13160);"></div><div (click)="bet(13);">13</div><div class="corner" (click)="bet(13141617);"></div> -->
                 <div (click)="bet(13);">13</div>
@@ -175,7 +175,7 @@
                 <div (click)="bet(15);">15</div>
                 </ion-col>
               </ion-row>
-              <ion-row class="cell">
+              <ion-row class="cell smallrow">
                 <ion-col class="cellback small-cell redfont">
                   <!-- <div class="betweenright" (click)="bet(16170);"></div><div class="betweenbottom" (click)="bet(16190);"></div><div (click)="bet(16);">16</div><div class="corner" (click)="bet(16171920);"></div> -->
                 <div (click)="bet(16);">16</div>
@@ -189,7 +189,7 @@
                 <div (click)="bet(18);">18</div>
                 </ion-col>
               </ion-row>
-              <ion-row class="cell">
+              <ion-row class="cell smallrow">
                 <ion-col class="cellback small-cell redfont">
                   <!-- <div class="betweenright" (click)="bet(19220);"></div><div class="betweenbottom" (click)="bet(19200);"></div><div (click)="bet(19);">19</div><div class="corner" (click)="bet(19202223);"></div> -->
                 <div (click)="bet(19);">19</div>
@@ -203,7 +203,7 @@
                 <div (click)="bet(21);">21</div>
                 </ion-col>
               </ion-row>
-              <ion-row class="cell">
+              <ion-row class="cell smallrow">
                 <ion-col class="cellback small-cell">
                   <!-- <div class="betweenright" (click)="bet(22230);"></div><div class="betweenbottom" (click)="bet(22250);"></div><div (click)="bet(22);">22</div><div class="corner" (click)="bet(22232526);"></div> -->
                 <div (click)="bet(22);">22</div>
@@ -219,10 +219,10 @@
               </ion-row>
             </ion-col>
           </ion-row>
-          <ion-row>
-              <ion-col class="cell-none" col-2>
+          <ion-row class="bigrow">
+              <ion-col class="cell-none" col-1>
               </ion-col>
-              <ion-col class="cell nopadding" col-3>
+              <ion-col class="cell nopadding" col-4>
                   <ion-row class="cell center cellback leftcell" (click)="bet(39);">
                       <ion-col>
                         <span>
@@ -257,8 +257,8 @@
                       </ion-col>
                   </ion-row>
               </ion-col>
-              <ion-col class="cell nopadding" col-6>
-                <ion-row class="cell">
+              <ion-col class="cell nopadding" col-7>
+                <ion-row class="cell smallrow">
                   <ion-col class="cellback small-cell redfont">
                     <!-- <div class="betweenright" (click)="bet(25260);"></div><div class="betweenbottom" (click)="bet(25280);"></div><div (click)="bet(25);">25</div><div class="corner" (click)="bet(25262829);"></div> -->
                     <div (click)="bet(25);">25</div>
@@ -272,7 +272,7 @@
                     <div (click)="bet(27);">27</div>
                   </ion-col>
                 </ion-row>
-                <ion-row class="cell">
+                <ion-row class="cell smallrow">
                   <ion-col class="cellback small-cell">
                     <!-- <div class="betweenright" (click)="bet(28290);"></div><div class="betweenbottom" (click)="bet(28310);"></div><div (click)="bet(28);">28</div><div class="corner" (click)="bet(28293132);"></div> -->
                     <div (click)="bet(28);">28</div>
@@ -286,7 +286,7 @@
                     <div (click)="bet(30);">30</div>
                   </ion-col>
                 </ion-row>
-                <ion-row class="cell">
+                <ion-row class="cell smallrow">
                   <ion-col class="cellback small-cell">
                     <!-- <div class="betweenright" (click)="bet(31320);"></div><div class="betweenbottom" (click)="bet(31340);"></div><div (click)="bet(31);">31</div><div class="corner" (click)="bet(31323435);"></div> -->
                     <div (click)="bet(31);">31</div>
@@ -300,7 +300,7 @@
                     <div (click)="bet(33);">33</div>
                   </ion-col>
                 </ion-row>
-                <ion-row class="cell">
+                <ion-row class="cell smallrow">
                   <ion-col class="cellback small-cell redfont">
                     <!-- <div class="betweenright" (click)="bet(34350);"></div><div (click)="bet(34);">34</div> -->
                     <div (click)="bet(34);">34</div>
