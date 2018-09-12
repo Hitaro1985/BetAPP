@@ -49,28 +49,55 @@ export class BetPage {
   }
 
   bet(amount) {
-    if( this.betlist == null ) {
-      this.betlist = {}
-    }
-    var text;
-    if( amount > 46) {
-      text = this.corners[String(amount)];
-    } else if( amount > 36 ) {
-      text = this.texts[amount - 37];
-    } else {
-      text = String(amount);
-    }
-    if( this.bets == null ) {
-      this.bets = text;
-    } else {
-      this.bets = this.bets + "," + text;
-    }
-    if(this.betlist[String(amount)]) {
-      this.betlist[String(amount)] = this.betlist[String(amount)] + 1;
-    } else {
-      this.betlist[String(amount)] = 1;
-    }
-    this.onChangeAmount();
+    this.rest.checkSlot({"amount":amount}).then((result) => {
+      console.log(result);
+      if( result['response_code']  == 1) {
+        if( result['data'] == true ) {
+          if( this.betlist == null ) {
+            this.betlist = {}
+          }
+          var text;
+          if( amount > 46) {
+            text = this.corners[String(amount)];
+          } else if( amount > 36 ) {
+            text = this.texts[amount - 37];
+          } else {
+            text = String(amount);
+          }
+          if( this.bets == null ) {
+            this.bets = text;
+          } else {
+            this.bets = this.bets + "," + text;
+          }
+          if(this.betlist[String(amount)]) {
+            this.betlist[String(amount)] = this.betlist[String(amount)] + 1;
+          } else {
+            this.betlist[String(amount)] = 1;
+          }
+          this.onChangeAmount();
+        } else {
+          this.presentToast("Number " + String(result['number']) + " is disabled");
+        }
+      } else {
+        this.presentToast(result['message']);
+      }
+    }, (err) => {
+      console.log(err);
+      try {
+        if( err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired" ) {
+          this.presentToast("Token Expired");
+          localStorage.clear();
+          this.app.getRootNav().pop();
+          this.app.getRootNav().setRoot(TabsPage);
+        }
+      } catch {
+        this.presentToast("Post Error");
+      }
+    });
+    // if( amount == 5 ) {
+    //   this.presentToast("Number " + String(amount) + " is disabled");
+    //   return;
+    // }
   }
 
   onChangeAmount() : void {

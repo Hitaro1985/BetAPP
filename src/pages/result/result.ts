@@ -43,6 +43,7 @@ export class ResultPage {
   }
 
   getUserData() {
+    this.user = JSON.parse(localStorage.getItem('user'));
     this.rest.getUserData().then((result) => {
       if ( this.user['amount'] != result['data']['amount'] ) {
         localStorage.setItem('user', JSON.stringify(result['data']));

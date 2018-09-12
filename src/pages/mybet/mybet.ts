@@ -116,6 +116,7 @@ export class MyBetPage {
   }
 
   getUserData() {
+    this.user = JSON.parse(localStorage.getItem('user'));
     this.rest.getUserData().then((result) => {
       if ( this.user['amount'] != result['data']['amount'] ) {
         localStorage.setItem('user', JSON.stringify(result['data']));
@@ -143,7 +144,6 @@ export class MyBetPage {
     this.rest.getMyBetInfo().then((result) => {
       if (result['response_code'] == 1) {
         this.datas = result['data'];
-        console.log(result['data']);
         for (let data of this.datas) {
           var date3 = new Date(data['created_at']);
           var ionicDate3 = new Date(Date.UTC(date3.getFullYear(), date3.getMonth(), date3.getDate(), date3.getHours(), date3.getMinutes(), date3.getSeconds(), date3.getMilliseconds()));

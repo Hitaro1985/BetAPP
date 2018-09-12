@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, App, LoadingController, ToastController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { RestProvider } from '../../providers/rest/rest';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -29,6 +29,8 @@ export class HomePage {
   totalbet: any;
   betlist = {};
   observableVar: Subscription;
+  observableVar2: Subscription;
+  gifNumber: any;
 
   table = [
     { no: 3, color: "#FF0000" }, { no: 6, color: "#1b1623" }, { no: 9, color: "#FF0000" }, { no: 12, color: "#FF0000" },
@@ -65,9 +67,20 @@ export class HomePage {
     this.observableVar = Observable.interval(1000).subscribe( x => {
       this.getInfo(this.rest);
     });
+    this.gifNumber = 0;
+    this.observableVar2 = Observable.interval(100).subscribe( x => {
+      this.changeGif();
+    });
+  }
+
+  changeGif() {
+    this.gifNumber = Math.floor(Math.random()*37)
+    this.leftshowone = String( Math.floor( this.gifNumber / 10 ));
+    this.leftshowtwo = String( this.gifNumber % 10 );
   }
 
   getUserData() {
+    this.user = JSON.parse(localStorage.getItem('user'));
     this.rest.getUserData().then((result) => {
       if ( this.user['amount'] != result['data']['amount'] ) {
         localStorage.setItem('user', JSON.stringify(result['data']));
@@ -90,6 +103,7 @@ export class HomePage {
 
   ionViewWillLeave() {
     this.observableVar.unsubscribe();
+    this.observableVar2.unsubscribe();
   }
 
   getInfo(rest) {
@@ -115,8 +129,8 @@ export class HomePage {
         } else {
           this.leftseconds = String(ls);
         }
-        this.leftshowone = String( Math.floor( this.leftminutes / 10 ));
-        this.leftshowtwo = String( this.leftminutes % 10 );
+        // this.leftshowone = String( Math.floor( this.leftminutes / 10 ));
+        // this.leftshowtwo = String( this.leftminutes % 10 );
         
         this.roundlastinfo = result['data']['last'];
         var date = new Date(this.roundlastinfo['created_at']);
@@ -127,10 +141,10 @@ export class HomePage {
         this.lastcloseddate = "" + ionicDate2.getFullYear() + "-" + ionicDate2.getMonth() + "-" + ionicDate2.getDay() + " " + ionicDate2.getHours() + ":" + ionicDate2.getMinutes() + ":" + ionicDate2.getSeconds();
 
         this.passedrounds = result['data']['passedround'];
-        var lastnumber = this.passedrounds[0]['rightNumber'];
+        //var lastnumber = this.passedrounds[0]['rightNumber'];
         //this.leftshowone = this.passedrounds[i]['rightNumber'];
-        this.leftshowone = String( Math.floor( lastnumber / 10 ));
-        this.leftshowtwo = String( lastnumber % 10 );
+        // this.leftshowone = String( Math.floor( lastnumber / 10 ));
+        // this.leftshowtwo = String( lastnumber % 10 );
         var i = 0;
         for (let passedround of this.passedrounds) {
           var date3 = new Date(passedround['created_at']);

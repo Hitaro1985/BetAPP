@@ -4,7 +4,8 @@ import { LoginPage } from '../login/login';
 import { BetPage } from '../bet/bet';
 import { ReportPage } from '../report/report';
 import { RestProvider } from '../../providers/rest/rest';
-import { BetsuccessPage } from '../betsuccess/betsuccess';
+import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * Generated class for the MyprofilePage page.
@@ -23,6 +24,7 @@ export class MyProfilePage {
   user: any;
   isloggingin: any;
   betPage: any;
+  observableVar: Subscription;
 
   constructor(public app:App, public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
     this.betPage = BetPage;
@@ -35,6 +37,7 @@ export class MyProfilePage {
   }
 
   getUserData() {
+    this.user = JSON.parse(localStorage.getItem('user'));
     this.rest.getUserData().then((result) => {
       if ( this.user['amount'] != result['data']['amount'] ) {
         localStorage.setItem('user', JSON.stringify(result['data']));
@@ -61,6 +64,13 @@ export class MyProfilePage {
 
   ionViewWillEnter() {
     this.getUserData();
+    this.observableVar = Observable.interval(3000).subscribe( x => {
+      this.getUserData();
+    });
+  }
+
+  ionViewWillLeave() {
+    this.observableVar.unsubscribe();
   }
 
   clickBet() {
