@@ -166,24 +166,44 @@ export class MyBetPage {
   }
 
   cancelbet(i) {
-    this.rest.cancelBet({"id":this.datas[i]['id']}).then((result) => {
-      if( result['response_code']  == 1) {
-        this.presentToast("CANCEL BET SUCCESS");
-      } else {
-        this.presentToast(result['message']);
-      }
-    }, (err) => {
-      try {
-        if( err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired" ) {
-          this.presentToast("Token Expired");
-          localStorage.clear();
-          this.app.getRootNav().pop();
-          this.app.getRootNav().setRoot(TabsPage);
+    let alert = this.alertCtrl.create({
+      title: 'Confirm cancel',
+      message: 'Do you want to cancel this bet?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.rest.cancelBet({"id":this.datas[i]['id']}).then((result) => {
+              if( result['response_code']  == 1) {
+                this.presentToast("CANCEL BET SUCCESS");
+                this.navCtrl.setRoot(this.navCtrl.getActive().component);
+              } else {
+                this.presentToast(result['message']);
+              }
+            }, (err) => {
+              try {
+                if( err['error']['error'] == "token_invalid" || err['error']['error'] == "token_expired" ) {
+                  this.presentToast("Token Expired");
+                  localStorage.clear();
+                  this.app.getRootNav().pop();
+                  this.app.getRootNav().setRoot(TabsPage);
+                }
+              } catch {
+                this.presentToast("Post Error");
+              }      
+            });
+          }
         }
-      } catch {
-        this.presentToast("Post Error");
-      }      
+      ]
     });
+    alert.present();
   }
 
   printData(device, data) {
@@ -248,6 +268,11 @@ export class MyBetPage {
     receipt += commands.TEXT_FORMAT.TXT_4SQUARE;
     receipt += commands.TEXT_FORMAT.TXT_ALIGN_CT;
     receipt += title.toUpperCase();
+    receipt += commands.EOL;
+    receipt += commands.TEXT_FORMAT.TXT_4SQUARE;
+    receipt += commands.TEXT_FORMAT.TXT_ALIGN_CT;
+    receipt += commands.TEXT_FORMAT.TXT_FONT_A;
+    receipt += "LL";
     receipt += commands.EOL;
     receipt += commands.TEXT_FORMAT.TXT_NORMAL;
     receipt += commands.HORIZONTAL_LINE.HR_58MM;

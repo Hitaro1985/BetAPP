@@ -30,6 +30,7 @@ export class HomePage {
   betlist = {};
   observableVar: Subscription;
   observableVar2: Subscription;
+  status_observable2: any;
   gifNumber: any;
 
   table = [
@@ -64,19 +65,24 @@ export class HomePage {
     //Observable.interval(1000).subscribe( x=> {
     this.getUserData();
     //});
-    this.observableVar = Observable.interval(1000).subscribe( x => {
+    this.observableVar = Observable.interval(1000000).subscribe( x => {
       this.getInfo(this.rest);
     });
     this.gifNumber = 0;
-    this.observableVar2 = Observable.interval(100).subscribe( x => {
+    this.status_observable2 = true;
+    this.observableVar2 = Observable.interval(10).subscribe( x => {
       this.changeGif();
     });
   }
 
   changeGif() {
-    this.gifNumber = Math.floor(Math.random()*37)
+    //this.gifNumber = Math.floor(Math.random()*37);
     this.leftshowone = String( Math.floor( this.gifNumber / 10 ));
     this.leftshowtwo = String( this.gifNumber % 10 );
+    this.gifNumber = this.gifNumber + 1;
+    if ( this.gifNumber > 36 ) {
+      this.gifNumber = 0;
+    }
   }
 
   getUserData() {
@@ -103,12 +109,29 @@ export class HomePage {
 
   ionViewWillLeave() {
     this.observableVar.unsubscribe();
+    this.status_observable2 = false;
     this.observableVar2.unsubscribe();
   }
 
   getInfo(rest) {
     rest.getHomeInfo().then((result) => {
       if( result['response_code'] == 1 ) {
+        if (result['data']['last']['rightNumber'] != null) {
+          if (this.status_observable2 == true) {
+            var gifn = result['data']['last']['rightNumber'];
+            this.leftshowone = String( Math.floor( gifn / 10 ));
+            this.leftshowtwo = String( gifn % 10 );
+            this.observableVar2.unsubscribe();
+            this.status_observable2 = false;
+          }
+        } else {
+          if (this.status_observable2 == false) {
+            this.observableVar2 = Observable.interval(10).subscribe( x => {
+              this.changeGif();
+            });
+            this.status_observable2 = true;
+          }
+        }
         this.roundcurrentinfo = result['data']['current'];
         var date1 = new Date(this.roundcurrentinfo['created_at']);
         var ionicDate1 = new Date(Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate(), date1.getHours(), date1.getMinutes(), date1.getSeconds(), date1.getMilliseconds()));
