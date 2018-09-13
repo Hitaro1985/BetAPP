@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-  let apiUrl = 'http://lotbackendapps.skydeveloperonline.com/public/api/'
-  //let apiUrl = 'http://localhost:8000/api/'
+  //let apiUrl = 'http://lotbackendapps.skydeveloperonline.com/public/api/'
+  let apiUrl = 'http://localhost:8000/api/'
 
 /*
   Generated class for the RestProvider provider.

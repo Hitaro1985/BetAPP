@@ -19,7 +19,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 export class LoginPage {
 
   loading: any;
-  loginData = { email:'', password:'' }
+  loginData = { name:'', password:'' }
   data: any;
 
   @ViewChild(NavController) navCtrl: NavController;
