@@ -114,7 +114,6 @@ export class HomePage {
   }
 
   getInfo(rest) {
-    console.log("asdf");
     rest.getHomeInfo().then((result) => {
       if( result['response_code'] == 1 ) {
         if (result['data']['last']['rightNumber'] != null) {
