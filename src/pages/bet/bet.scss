@@ -2,6 +2,9 @@ page-bet {
     .bigrow {
         height: 25%;
     }
+    ion-item div.item-inner {
+        padding: 0!important;
+    }
     .smallrow {
         height: 25%;
     }
@@ -54,7 +57,7 @@ page-bet {
     }
     .leftone {
         height: 100%;
-        background-color: orange;
+        background-color: white;
     }
     .first12 {
         border-radius: 5px 0px 0px 0px;

@@ -42,7 +42,6 @@ export class BetPage {
 
   constructor(public app:App, public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, private toastCtrl: ToastController, public rest: RestProvider) {
     this.total = 0;
-    this.amount = 0;
   }
 
   ionViewDidLoad() {
@@ -98,15 +97,17 @@ export class BetPage {
 
   onChangeAmount() : void {
     this.total = 0;
-    var i = 0;
-    for(i = 0; i < 46; i ++) {
-      if( this.betlist[String(i)] ) {
-        this.total = this.total + this.betlist[String(i)] * this.amount;
+    if( this.amount != null) {
+      var i = 0;
+      for(i = 0; i < 46; i ++) {
+        if( this.betlist[String(i)] ) {
+          this.total = this.total + this.betlist[String(i)] * this.amount;
+        }
       }
-    }
-    for ( var k in this.corners ) {
-      if( this.betlist[k] ) {
-        this.total = this.total + this.betlist[k] * this.amount;
+      for ( var k in this.corners ) {
+        if( this.betlist[k] ) {
+          this.total = this.total + this.betlist[k] * this.amount;
+        }
       }
     }
   }

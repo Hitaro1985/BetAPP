@@ -8,9 +8,9 @@
 <!-- <div style="height: 78%;"> -->
 <ion-content>
   <button ion-item (click)="back();" style="text-align: center; background: transparent;">Back</button>
-  <div style="height: 90%;">
+  <div style="height: 492px;">
     <div style="padding-bottom: 15px; height: 100%;">
-      <ion-grid padding class="bet-grid" style="margin: auto; height: 100%;">
+      <ion-grid padding class="bet-grid" style="margin: auto; height: 100%;padding-bottom: 0;">
         <ion-row>
           <ion-col class="center">
             <img width="150" src="../../assets/imgs/ui/lotto-logo.png">
@@ -318,17 +318,17 @@
       </ion-grid>
     </div>
   </div>
-  <div padding *ngIf="this.betlist != null" style="background-color: white;">
+  <div padding *ngIf="this.betlist != null" style="background-color: white;padding-left: 0;padding-right: 0;">
     <div style="height: 70%; overflow-y: scroll;">
       {{ this.bets }}
     </div>
     <div style="height: 30%;">
-      <ion-item>
+      <ion-item style="width: 15%;padding: 0;margin: 0;display: inline-block;">
         <ion-input type="number" placeholder="Amount" class="ion-input" [(ngModel)]="amount" (input)="onChangeAmount();"></ion-input>
       </ion-item>
-      <ion-item style="display: inline-block;">
+      <ion-item style="display: inline-block;padding: 0;margin: 0;width: 83%;">
         Amount  Total
-        <span id="totallabel">{{ this.total }}</span>
+        <span id="totallabel"><span *ngIf="this.total == null">0</span><span *ngIf="this.total != null">{{ this.total }}</span></span>
         <button class="submit" (click)="submit();">Submit</button>
         <button class="rebet" (click)="rebet();">Rebet</button>
       </ion-item>
