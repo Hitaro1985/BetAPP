@@ -49,6 +49,7 @@
                 <p class="p-b-5">{{ data['name']}} # {{ data['round'] }}</p>
                 <p class="p-b-5" *ngFor=" let betst of data['betstate'] "> {{ betst }} </p>
                 <p>Total MYR <span>{{ data['total'] }}</span></p>
+                <p>Total Pay MYR <span>{{ data['total_pay'] }}</span></p>
             </ion-col>
             <ion-col col-5 class="text-right">
                 <button *ngIf="data['wls'] == null" ion-button color="light" clear icon-only class="m-top-12" (click)="cancelbet(i);">
