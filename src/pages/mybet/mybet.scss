@@ -1,4 +1,52 @@
 page-mybet {
+    .pagination-bar {
+        width: 100% !important;
+        flex-wrap: wrap;
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        padding: 5px 10px !important;
+        text-align: center;
+
+        button {
+            height:25px;
+        }
+
+        .flex-2 {
+            -webkit-flex: 2;  /* Safari 6.1+ */
+            -ms-flex: 2;  /* IE 10 */    
+            flex: 2;
+        }
+
+        .flex-1 {
+            -webkit-flex: 1;  /* Safari 6.1+ */
+            -ms-flex: 1;  /* IE 10 */    
+            flex: 1;
+        }
+
+        .font-white {
+            color: white;
+        }
+
+        font-black {
+            color: black;
+        }
+
+        .back-light {
+            background-color: #bcbcbc;
+        }
+
+        .back-dark {
+            background-color: #979797;
+        }
+
+        .first-page {
+            border-radius: 5px 0 0 5px;
+        }
+
+        .last-page {
+            border-radius: 0 5px 5px 0;
+        }
+    }
     ion-col {
         text-align: center;
         padding-top: 5%;

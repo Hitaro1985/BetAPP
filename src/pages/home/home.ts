@@ -30,6 +30,7 @@ export class HomePage {
   betlist = {};
   observableVar: Subscription;
   observableVar2: Subscription;
+  observableVar3: Subscription;
   status_observable2: any;
   gifNumber: any;
 
@@ -65,6 +66,9 @@ export class HomePage {
     //Observable.interval(1000).subscribe( x=> {
     this.getUserData();
     //});
+    this.observableVar3 = Observable.interval(3000).subscribe( x => {
+      this.getUserData();
+    });
     this.observableVar = Observable.interval(1000).subscribe( x => {
       this.getInfo(this.rest);
     });
@@ -88,11 +92,23 @@ export class HomePage {
   getUserData() {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.rest.getUserData().then((result) => {
-      if ( this.user['amount'] != result['data']['amount'] ) {
-        localStorage.setItem('user', JSON.stringify(result['data']));
-        //this.navCtrl.setRoot(this.navCtrl.getActive().component);
-        this.user = JSON.parse(localStorage.getItem('user'));
+      if ( result['response_code'] == 1) {
+        if ( this.user['amount'] != result['data']['amount'] ) {
+          localStorage.setItem('user', JSON.stringify(result['data']));
+          //this.navCtrl.setRoot(this.navCtrl.getActive().component);
+          this.user = JSON.parse(localStorage.getItem('user'));
+        } else {
+        }
       } else {
+        try {
+          this.presentToast(result['message']);
+          if (result['message'] == "Your account has been blocked") {
+            this.presentToast(result['message']);
+            this.signout();
+          }
+        } catch {
+          this.presentToast("Post Error");
+        }
       }
     }, (err) => {
       try {
@@ -111,6 +127,7 @@ export class HomePage {
     this.observableVar.unsubscribe();
     this.status_observable2 = false;
     this.observableVar2.unsubscribe();
+    this.observableVar3.unsubscribe();
   }
 
   getInfo(rest) {
@@ -182,7 +199,14 @@ export class HomePage {
           i = i + 1;
         }
       } else {
-        this.presentToast(result['message']);
+        try {
+          if (result['message'] == "Your account has been blocked") {
+            this.presentToast(result['message']);
+            this.signout();
+          }
+        } catch {
+          this.presentToast("Post Error");
+        }
       }
     }, (err) => {
       this.presentToast("Post Error");

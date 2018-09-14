@@ -26,6 +26,23 @@
 </ion-header>
 
 <ion-content>
+    <div class="pagination-bar">
+        <button class="flex-2 font-white back-dark first-page" (click)="go_to_page(1)">
+            &lt;&lt;
+        </button>
+        <button class="flex-1 font-white back-light" (click)="go_to_page(cur_page_num-1)">
+            &lt;
+        </button>
+        <button class="flex-2 page font-black">
+            {{cur_page_num}}
+        </button>
+        <button class="flex-1 font-white back-light" (click)="go_to_page(cur_page_num+1)">
+            &gt;
+        </button>
+        <button class="flex-2 font-white back-dark last-page" (click)="go_to_page(page_count)">
+            &gt;&gt;
+        </button>
+    </div>
     <ion-grid *ngIf="this.datas">
         <ion-row *ngFor=" let data of this.datas ; let i = index">
             <ion-col class="text-left">

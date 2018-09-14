@@ -7,6 +7,8 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { TabsPage } from '../tabs/tabs';
 import { PrinterProvider } from './../../providers/printer/printer';
 import { commands } from './../../providers/printer/printer-commands';
+import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-mybet',
@@ -18,6 +20,12 @@ export class MyBetPage {
   user: any;
   isloggingin: boolean;
   datas: any;
+  observableVar: Subscription;
+  observableVar3: Subscription;
+	cur_page_num :number = 1;
+	page_count;
+	count_per_page = 10;
+
 
   constructor(public navCtrl: NavController, private printer: PrinterProvider, private alertCtrl: AlertController, public loadingCtrl: LoadingController, private toastCtrl: ToastController, public app: App, public rest: RestProvider, public datepipe: DatePipe, public socialSharing: SocialSharing) {
     this.showLoader();
@@ -112,17 +120,35 @@ export class MyBetPage {
     } else {
       this.getInfo();
       this.getUserData();
+      this.observableVar3 = Observable.interval(3000).subscribe( x => {
+        this.getUserData();
+      });
+      this.observableVar = Observable.interval(1000).subscribe( x => {
+        this.getInfo();
+      });
     }
   }
 
   getUserData() {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.rest.getUserData().then((result) => {
-      if ( this.user['amount'] != result['data']['amount'] ) {
-        localStorage.setItem('user', JSON.stringify(result['data']));
-        //this.navCtrl.setRoot(this.navCtrl.getActive().component);
-        this.user = JSON.parse(localStorage.getItem('user'));
+      if ( result['response_code'] == 1) {
+        if ( this.user['amount'] != result['data']['amount'] ) {
+          localStorage.setItem('user', JSON.stringify(result['data']));
+          //this.navCtrl.setRoot(this.navCtrl.getActive().component);
+          this.user = JSON.parse(localStorage.getItem('user'));
+        } else {
+        }
       } else {
+        try {
+          this.presentToast(result['message']);
+          if (result['message'] == "Your account has been blocked") {
+            this.presentToast(result['message']);
+            this.signout();
+          }
+        } catch {
+          this.presentToast("Post Error");
+        }
       }
     }, (err) => {
       try {
@@ -138,11 +164,16 @@ export class MyBetPage {
   }
 
   ionViewWillLeave() {
+    this.observableVar.unsubscribe();
+    this.observableVar3.unsubscribe();
   }
 
   getInfo() {
-    this.rest.getMyBetInfo().then((result) => {
+    this.rest.getMyBetInfo({"cur_page_num":this.cur_page_num, "count_per_page":this.count_per_page}).then((result) => {
       if (result['response_code'] == 1) {
+        
+        this.page_count = Math.ceil(result['total_count'] / (this.count_per_page * 1.0));
+        
         this.datas = result['data'];
         for (let data of this.datas) {
           var date3 = new Date(data['created_at']);
@@ -150,7 +181,14 @@ export class MyBetPage {
           data['created_at'] = this.datepipe.transform(ionicDate3, 'yyyy-MM-dd : HH:mm:ss');
         }
       } else {
-        this.presentToast(result['message']);
+        try {
+          if (result['message'] == "Your account has been blocked") {
+            this.presentToast(result['message']);
+            this.signout();
+          }
+        } catch {
+          this.presentToast("Post Error");
+        }
       }
     }, (err) => {
       try {
@@ -164,6 +202,14 @@ export class MyBetPage {
       }
     });
   }
+
+	public go_to_page(page) {
+		if (page < 1) page = 1;
+		if (page > this.page_count) page = this.page_count;
+		this.cur_page_num = page;
+
+		this.getInfo();
+	}
 
   cancelbet(i) {
     let alert = this.alertCtrl.create({

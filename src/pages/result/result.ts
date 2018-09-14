@@ -3,6 +3,8 @@ import { IonicPage, NavController, App, LoadingController, ToastController } fro
 import { LoginPage } from '../login/login';
 import { RestProvider } from '../../providers/rest/rest';
 import { DatePipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * Generated class for the ResultPage page.
@@ -22,6 +24,8 @@ export class ResultPage {
   user: any;
   isloggingin: boolean;
   datas: any;
+  observableVar: Subscription;
+  observableVar3: Subscription;
 
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, private toastCtrl: ToastController, public app: App, public rest: RestProvider, public datepipe:DatePipe) {
     this.showLoader();
@@ -37,9 +41,17 @@ export class ResultPage {
   ionViewWillEnter() {
     this.getInfo();
     this.getUserData();
+    this.observableVar3 = Observable.interval(3000).subscribe( x => {
+      this.getUserData();
+    });
+    this.observableVar = Observable.interval(1000).subscribe( x => {
+      this.getInfo();
+    });
   }
 
   ionViewWillLeave() {
+    this.observableVar.unsubscribe();
+    this.observableVar3.unsubscribe();
   }
 
   getUserData() {
@@ -83,7 +95,14 @@ export class ResultPage {
           data['second'] = String( data['rightNumber'] % 10 );
         }
       } else {
-        this.presentToast(result['message']);
+        try {
+          if (result['message'] == "Your account has been blocked") {
+            this.presentToast(result['message']);
+            this.signout();
+          }
+        } catch {
+          this.presentToast("Post Error");
+        }
       }
     }, (err) => {
         this.presentToast("Post Error");

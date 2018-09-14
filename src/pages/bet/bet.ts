@@ -116,7 +116,7 @@ export class BetPage {
     this.total = 0;
     this.betlist = null;
     this.bets = null;
-    this.amount = 0;
+    this.amount = null;
   }
 
   submit() {
